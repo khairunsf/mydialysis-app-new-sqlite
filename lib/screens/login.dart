@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/model/userModel.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/bottomBarDS.dart';
 import 'package:mydialysis_app/screens/forgot_pwd.dart';
-import 'package:mydialysis_app/services/check_patient.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/bottomBarHS.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/databaseHelper.dart';
 import '../services/check_dialysis_staff.dart';
@@ -54,21 +55,17 @@ class _LoginPageState extends State<LoginPage> {
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);
           Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => BottomBarPage())));
+              MaterialPageRoute(builder: ((context) => PBottomBarPage())));
         } else if (urole == 'Dialysis Staff') {
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) => DialysisStaffCheckPage())));
+          Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
         } else if (userRole == 'Hospital Staff') {
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) => HospitalStaffCheckPage())));
+          Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
         }
       }
     }

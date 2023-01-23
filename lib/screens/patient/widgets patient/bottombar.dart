@@ -9,14 +9,14 @@ import 'package:mydialysis_app/screens/patient/payment/payment_patient.dart';
 import 'package:mydialysis_app/screens/patient/profile/profile_patient.dart';
 import 'package:mydialysis_app/screens/patient/time%20slot/time_slot_patient.dart';
 
-class BottomBarPage extends StatefulWidget {
-  const BottomBarPage({super.key});
+class PBottomBarPage extends StatefulWidget {
+  const PBottomBarPage({super.key});
 
   @override
-  State<BottomBarPage> createState() => _BottomBarPageState();
+  State<PBottomBarPage> createState() => _PBottomBarPageState();
 }
 
-class _BottomBarPageState extends State<BottomBarPage> {
+class _PBottomBarPageState extends State<PBottomBarPage> {
   final user = FirebaseAuth.instance.currentUser;
 
   int _selectedIndex = 0;

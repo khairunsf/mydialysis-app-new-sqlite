@@ -30,7 +30,7 @@ class SecondPartDSTreatmentRecord extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DSBottomBar()),
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
                   );
                 },
               ),
@@ -76,7 +76,7 @@ class SecondPartDSSlotTime extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DSBottomBar()),
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
                   );
                 },
               ),
@@ -122,7 +122,7 @@ class SecondPartDSDirectory extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DSBottomBar()),
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
                   );
                 },
               ),
@@ -168,7 +168,7 @@ class SecondPartDSPayment extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DSBottomBar()),
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
                   );
                 },
               ),
@@ -214,7 +214,7 @@ class SecondPartDSProfile extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DSBottomBar()),
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
                   );
                 },
               ),

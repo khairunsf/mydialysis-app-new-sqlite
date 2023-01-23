@@ -15,7 +15,7 @@ class DialysisStaffCheckPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return DSBottomBar();
+            return DSBottomBarPage();
           } else {
             return AuthPage();
           }

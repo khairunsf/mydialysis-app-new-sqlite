@@ -10,15 +10,14 @@ import '../profile ds/profileDS.dart';
 import '../slot time ds/slotTimeDS.dart';
 import '../treatment record ds/treatmentRecordDS.dart';
 
-class DSBottomBar extends StatefulWidget {
-  const DSBottomBar({super.key});
+class DSBottomBarPage extends StatefulWidget {
+  const DSBottomBarPage({super.key});
 
   @override
-  State<DSBottomBar> createState() => _DSBottomBarState();
+  State<DSBottomBarPage> createState() => _DSBottomBarPageState();
 }
 
-class _DSBottomBarState extends State<DSBottomBar> {
-
+class _DSBottomBarPageState extends State<DSBottomBarPage> {
   final user = FirebaseAuth.instance.currentUser;
 
   int _selectedIndex = 0;

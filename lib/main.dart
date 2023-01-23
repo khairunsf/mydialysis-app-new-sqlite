@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   //boolean. initially, it show the login page
   bool showLoginPage = true;
 
-  void toggleScreen(){
+  void toggleScreen() {
     setState(() {
       showLoginPage = !showLoginPage;
     });
@@ -28,17 +28,14 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(body: SafeArea(child: switchPages(),))
-    );
-    }
+    return MaterialApp(debugShowCheckedModeBanner: false, home: switchPages());
+  }
 
-    StatefulWidget switchPages(){
-      if (showLoginPage) {
+  StatefulWidget switchPages() {
+    if (showLoginPage) {
       return LoginPage(showSignupPage: toggleScreen);
     } else {
       return SignupPage(showLoginPage: toggleScreen);
     }
-    }
+  }
 }

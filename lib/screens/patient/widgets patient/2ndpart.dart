@@ -30,7 +30,7 @@ class SecondPartProfile extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
@@ -119,7 +119,7 @@ class SecondPartTimeSlot extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
@@ -208,7 +208,7 @@ class SecondPartAppointment extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
@@ -340,7 +340,7 @@ class SecondPartPayment extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
@@ -386,7 +386,7 @@ class SecondPartDirectory extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
@@ -432,7 +432,7 @@ class SecondPartTreatment extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomBarPage()),
+                    MaterialPageRoute(builder: (context) => PBottomBarPage()),
                   );
                 },
               ),
