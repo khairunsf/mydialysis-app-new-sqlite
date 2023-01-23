@@ -1,0 +1,45 @@
+//if (user != null) {
+   //                     final FirebaseUser =
+    //    await FirebaseAuth.instance.currentUser;
+   //                     final uid = user.uid;
+
+  //  await FirebaseFirestore.instance
+     //   .collection('patients')
+ //       .doc(FirebaseUser!.uid)
+      //  .get()
+    //    .then((value) {
+     //       userRole = value.data()!['role'];
+       //    print(userRole);
+       //     setState(() {
+        //        if (userRole == 'Dialysis Staff') {
+      //              Navigator.push(
+        //                context,
+        //                MaterialPageRoute(
+        //                    builder: ((context) =>
+         //                       DialysisStaffCheckPage())));
+      //          } else if (userRole == 'Patient') {
+         //           Navigator.push(
+        //                context,
+       //                 MaterialPageRoute(
+       //                     builder: ((context) =>
+        //                        PatientCheckPage())));
+       //         } else if (userRole == 'Hospital Staff') {
+       //             Navigator.push(
+       //                 context,
+       //                 MaterialPageRoute(
+           //                 builder: ((context) =>
+       //                         HospitalStaffCheckPage())));
+          //      }
+    //        });
+    //    });
+//}
+
+//if (user != null)
+ //                     {
+//                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+ //                           builder: (context) => PatientCheckPage()));
+  //                    }
+
+  //UserCredential userCredential = await auth.signInWithEmailAndPassword(
+  // email: email, password: password);
+   //user = userCredential.user;

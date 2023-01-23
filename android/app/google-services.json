@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "346932241085",
+    "project_id": "mydialysis-project",
+    "storage_bucket": "mydialysis-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346932241085:android:3a75ff684736a205d78dd4",
+        "android_client_info": {
+          "package_name": "com.example.mydialysis_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346932241085-bvdkqa79qiiea9n3pqsr2pelthrk74vk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr_ZWSOPmRbimZHpAesn00LWjXtbd_V3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346932241085-bvdkqa79qiiea9n3pqsr2pelthrk74vk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
