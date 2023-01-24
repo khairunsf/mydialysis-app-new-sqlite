@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names, depend_on_referenced_packages, prefer_final_fields
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/main.dart';
-import 'package:mydialysis_app/services/auth.dart';
 import 'package:intl/intl.dart';
 import 'package:mydialysis_app/services/signupRetry.dart';
 
@@ -64,6 +61,8 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future signUp() async {
+    print(_nameController);
+    print(_confirmPasswordController);
     if (passwordConfirmed()) {
       //create user
       await _databaseHelper!.insertUser({

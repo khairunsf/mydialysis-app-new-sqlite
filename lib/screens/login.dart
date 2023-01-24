@@ -1,14 +1,13 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, body_might_complete_normally_nullable, unused_local_variable, unrelated_type_equality_checks, use_build_context_synchronously
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, body_might_complete_normally_nullable, unused_local_variable, unrelated_type_equality_checks, use_build_context_synchronously, unnecessary_new
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/model/userModel.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/bottomBarDS.dart';
 import 'package:mydialysis_app/screens/forgot_pwd.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/bottomBarHS.dart';
+import 'package:mydialysis_app/services/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/databaseHelper.dart';
-import '../services/check_dialysis_staff.dart';
-import '../services/check_hospital_staff.dart';
 import 'patient/widgets patient/bottombar.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,6 +23,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  final _formKey = new GlobalKey<FormState>();
+  String? userRole;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   Future initDb() async {
     await _databaseHelper!.database;
@@ -32,51 +36,72 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    super.initState();
     _databaseHelper = DatabaseHelper();
     initDb();
-    super.initState();
   }
 
-  String? userRole;
-
   //Login Function
-  Future<UserModel?> login(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    UserModel? user;
-    String? uemail;
-    String? upwd;
-    String? urole;
-    final data = await _databaseHelper!.getAllUser();
-    if (data != null) {
-      if (uemail == email && upwd == password) {
-        if (urole == 'Patient') {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setBool('isLoggedIn', true);
-          Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => PBottomBarPage())));
-        } else if (urole == 'Dialysis Staff') {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setBool('isLoggedIn', true);
-          Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
-        } else if (userRole == 'Hospital Staff') {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setBool('isLoggedIn', true);
-          Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
+  Future<UserModel?> login() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+//last work: chnage textformfield. problem arise: cannot login
+    if (email.isEmpty) {
+      alertDialog(context, "Please enter your email");
+    } else if (password.isEmpty) {
+      alertDialog(context, "Please enter password");
+    } else {
+      await _databaseHelper!.getLoginUser(email, password).then((userData) {
+        if (userData != null) {
+          setSP(userData).whenComplete(() async {
+            var urole;
+            if (urole == 'Patient') {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('isLoggedIn', true);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => PBottomBarPage())));
+            } else if (urole == 'Dialysis Staff') {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('isLoggedIn', true);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
+            } else if (userRole == 'Hospital Staff') {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('isLoggedIn', true);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
+            } else {
+              AlertDialog(
+                title: Text("Error: User Not Found"),
+              );
+            }
+          }).catchError((error) {
+            print(error);
+            AlertDialog(
+              title: Text("Error: Login Fail"),
+            );
+          });
         }
-      }
+      });
     }
+  }
+
+  Future setSP(UserModel user) async {
+    final SharedPreferences sp = await prefs;
+
+    sp.setString("user_id", user.uid!);
+    sp.setString("user_name", user.uname!);
+    sp.setString("email", user.uemail!);
+    sp.setString("password", user.upwd!);
+    sp.setString("password", user.uphoneNum!);
+    sp.setString("password", user.udob!);
+    sp.setString("password", user.uaddress!);
+    sp.setString("password", user.ugivenCode!);
+    sp.setString("password", user.urole!);
   }
 
   @override
   Widget build(BuildContext context) {
-    //Create the textfield controller
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -84,127 +109,190 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           reverse: true,
           child: Center(
-            child: Column(
-              children: [
-                //App Logo
-                Image(
-                  image: AssetImage('images/mydialysis_logo.png'),
-                  height: 200,
-                  width: 200,
-                ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  //App Logo
+                  Image(
+                    image: AssetImage('images/mydialysis_logo.png'),
+                    height: 200,
+                    width: 200,
+                  ),
 
-                //Login name
-                Text(
-                  'Login',
-                  style: TextStyle(fontSize: 20, color: Colors.green[900]),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                  //Login name
+                  Text(
+                    'Login',
+                    style: TextStyle(fontSize: 20, color: Colors.green[900]),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                //Email textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  //Email textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Email Address',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Email";
+                        }
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Email Address',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  //Password textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Password',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Password";
+                        }
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Password',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ForgotPasswordPage();
+                            }));
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: Colors.indigo[400],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Button
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    width: double.infinity,
+                    child: RawMaterialButton(
+                      fillColor: Colors.green[700],
+                      elevation: 0.0,
+                      padding: EdgeInsets.symmetric(vertical: 15.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      onPressed: (() {
+                        if (_formKey.currentState!.validate()) {
+                          login;
+                          print(_emailController);
+                          print("Valid Success");
+                        } else {
+                          print("Valid Failed");
+                        }
+                      }),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Text(
-                        'Email Address',
+                        'New here? ',
                         style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Email Address',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-
-                //Password textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Password',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Password',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ForgotPasswordPage();
-                          }));
-                        },
+                        onTap: widget.showSignupPage,
                         child: Text(
-                          'Forgot Password?',
+                          'Sign Up',
                           style: TextStyle(
                             color: Colors.indigo[400],
                             fontWeight: FontWeight.bold,
@@ -213,69 +301,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                ),
-
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Button
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    fillColor: Colors.green[700],
-                    elevation: 0.0,
-                    padding: EdgeInsets.symmetric(vertical: 15.0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    onPressed: () async {
-                      UserModel? user = await login(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          context: context);
-                    },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                   ),
-                ),
-
-                SizedBox(
-                  height: 10,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    Text(
-                      'New here? ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: widget.showSignupPage,
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.indigo[400],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

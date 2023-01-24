@@ -42,6 +42,8 @@ dependencies:
   intl: ^0.18.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.17
+  wc_form_validators: ^1.0.0
+  toast: ^0.3.0
 
 dev_dependencies:
   flutter_test:

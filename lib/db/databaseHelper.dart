@@ -42,7 +42,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'myDialysis.db'; //db name
+    String path = directory.path + '/myDialysis.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -78,11 +78,14 @@ class DatabaseHelper {
   }
 
   //fetch one user only by email and password
-  Future<List<Map<String, dynamic>>> getUserbyEmailPwd(
+  Future<UserModel?> getLoginUser(
       String uemail, String upwd) async {
     final result = await _database!.rawQuery(
         'SELECT * FROM $userTable WHERE $coluemail = $uemail AND $colupwd = $upwd');
-    return result;
+        if (result.isNotEmpty) {
+      return UserModel.fromJson(result.first);
+    }
+    return null;
   }
 
   //insert operation: insert data obj from db
