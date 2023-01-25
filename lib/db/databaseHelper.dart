@@ -81,7 +81,7 @@ class DatabaseHelper {
   Future<UserModel?> getLoginUser(
       String uemail, String upwd) async {
     final result = await _database!.rawQuery(
-        'SELECT * FROM $userTable WHERE $coluemail = $uemail AND $colupwd = $upwd');
+        "SELECT * FROM $userTable WHERE $coluemail = ? AND $colupwd = ?", [uemail, upwd]);
         if (result.isNotEmpty) {
       return UserModel.fromJson(result.first);
     }

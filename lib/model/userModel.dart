@@ -3,8 +3,8 @@
 import 'dart:core';
 
 class UserModel {
-  String? uid,
-      uname,
+  int? uid;
+  String? uname,
       upwd,
       ucpwd,
       uphoneNum,

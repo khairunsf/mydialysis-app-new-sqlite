@@ -1,10 +1,12 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, body_might_complete_normally_nullable, unused_local_variable, unrelated_type_equality_checks, use_build_context_synchronously, unnecessary_new
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, body_might_complete_normally_nullable, unused_local_variable, unrelated_type_equality_checks, use_build_context_synchronously, unnecessary_new, prefer_typing_uninitialized_variables, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/model/userModel.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/bottomBarDS.dart';
 import 'package:mydialysis_app/screens/forgot_pwd.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/bottomBarHS.dart';
+import 'package:mydialysis_app/screens/patient/home_patient.dart';
+import 'package:mydialysis_app/screens/testing_Page.dart';
 import 'package:mydialysis_app/services/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/databaseHelper.dart';
@@ -43,61 +45,56 @@ class _LoginPageState extends State<LoginPage> {
 
   //Login Function
   Future<UserModel?> login() async {
+    print('Success');
     String email = _emailController.text;
     String password = _passwordController.text;
-//last work: chnage textformfield. problem arise: cannot login
-    if (email.isEmpty) {
-      alertDialog(context, "Please enter your email");
-    } else if (password.isEmpty) {
-      alertDialog(context, "Please enter password");
-    } else {
-      await _databaseHelper!.getLoginUser(email, password).then((userData) {
-        if (userData != null) {
-          setSP(userData).whenComplete(() async {
-            var urole;
-            if (urole == 'Patient') {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', true);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => PBottomBarPage())));
-            } else if (urole == 'Dialysis Staff') {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', true);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
-            } else if (userRole == 'Hospital Staff') {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', true);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
-            } else {
-              AlertDialog(
-                title: Text("Error: User Not Found"),
-              );
-            }
-          }).catchError((error) {
-            print(error);
+
+    await _databaseHelper!.getLoginUser(email, password).then((userData) {
+      if (userData != null) {
+        setSP(userData).whenComplete(() async {
+          print(userData.urole);
+          if (userData.urole == 'Patient') {
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setBool('isLoggedIn', true);
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => PBottomBarPage())));
+          } else if (userData.urole == 'Dialysis Staff') {
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setBool('isLoggedIn', true);
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
+          } else if (userData.urole == 'Hospital Staff') {
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setBool('isLoggedIn', true);
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
+          } else {
             AlertDialog(
-              title: Text("Error: Login Fail"),
+              title: Text("Error: User Not Found"),
             );
-          });
-        }
-      });
-    }
+          }
+        }).catchError((error) {
+          print(error);
+          AlertDialog(
+            title: Text("Error: Login Fail"),
+          );
+        });
+      }
+    });
   }
 
   Future setSP(UserModel user) async {
     final SharedPreferences sp = await prefs;
 
-    sp.setString("user_id", user.uid!);
+    sp.setInt("user_id", user.uid!);
     sp.setString("user_name", user.uname!);
     sp.setString("email", user.uemail!);
     sp.setString("password", user.upwd!);
-    sp.setString("password", user.uphoneNum!);
-    sp.setString("password", user.udob!);
-    sp.setString("password", user.uaddress!);
-    sp.setString("password", user.ugivenCode!);
-    sp.setString("password", user.urole!);
+    sp.setString("phone_num", user.uphoneNum!);
+    sp.setString("user_dob", user.udob!);
+    sp.setString("user_address", user.uaddress!);
+    sp.setString("user_code", user.ugivenCode!);
+    sp.setString("user_role", user.urole!);
   }
 
   @override
@@ -258,9 +255,14 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: (() {
                         if (_formKey.currentState!.validate()) {
-                          login;
-                          print(_emailController);
-                          print("Valid Success");
+                          login();
+                          // final prefs = await SharedPreferences.getInstance();
+                          //   prefs.setBool('isLoggedIn', true);
+                          //  Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: ((context) => HomePage())));
+                          // print("Valid Success");
                         } else {
                           print("Valid Failed");
                         }

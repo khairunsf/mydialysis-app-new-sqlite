@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/screens/patient/appointment/appointment_patient.dart';
 import 'package:mydialysis_app/screens/patient/home_patient.dart';
 import 'package:mydialysis_app/screens/patient/payment/payment_patient.dart';
@@ -17,7 +17,6 @@ class PBottomBarPage extends StatefulWidget {
 }
 
 class _PBottomBarPageState extends State<PBottomBarPage> {
-  final user = FirebaseAuth.instance.currentUser;
 
   int _selectedIndex = 0;
 

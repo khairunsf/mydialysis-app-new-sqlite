@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors, curly_braces_in_flow_control_structures, depend_on_referenced_packages, sort_child_properties_last
 
 import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/patient/profile/profile_patient.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
@@ -18,7 +15,7 @@ class EditProfilePatient extends StatefulWidget {
 }
 
 class _EditProfilePatientState extends State<EditProfilePatient> {
-  final user = FirebaseAuth.instance.currentUser;
+
   TextEditingController pNameController = TextEditingController();
   TextEditingController pPhoneNumberController = TextEditingController();
   TextEditingController pEmailController = TextEditingController();
@@ -31,86 +28,9 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
   @override
   void initState() {
     super.initState();
-    getPatient();
   }
 
-  getPatient() async {
-    setState(() {
-      isLoading = true;
-    });
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null)
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((value) {
-        pNameController.text = value.data()!['name'];
-        pPhoneNumberController.text = value.data()!['phonenumber'];
-        pEmailController.text = value.data()!['email'];
-        pDOBController.text = value.data()!['dob'];
-        pAddressController.text = value.data()!['address'];
-        setState(() {
-          isLoading = false;
-        });
-      });
-  }
-
-  Future _updatePatientData() async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({
-        'name': pNameController.text,
-        'email': pEmailController.text,
-        'phonenumber': pPhoneNumberController.text,
-        'dob': pDOBController.text,
-        'address': pAddressController.text,
-      });
-
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          backgroundColor: Colors.green.shade700,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          title: const Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          content: const Text('Profile Updated Successfully',
-              style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: Container(
-                  padding: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-                  color: Colors.green.shade900,
-                    child: Text(
-                  'OK',
-                  style: TextStyle(color: Colors.white),
-                )),
-              ),
-            ),
-          ],
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(e.message.toString()),
-          );
-        },
-      );
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -379,7 +299,6 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
                         onPressed: () {
-                          _updatePatientData();
                         }),
                   ),
                 ],

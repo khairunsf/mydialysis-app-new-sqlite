@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, curly_braces_in_flow_control_structures
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/screens/patient/profile/edit_profile.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
-
 import '../widgets patient/topbar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,30 +14,27 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final user = FirebaseAuth.instance.currentUser!;
+  DatabaseHelper? _databaseHelper;
+
+  Future initDb() async {
+    await _databaseHelper!.database;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    initDb();
+    super.initState();
+  }
+  
   String? pName;
   String? pNumber;
   String? pEmail;
   String? pDOB;
   String? pAddress;
 
-  Future _fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null)
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((value) {
-        pName = value.data()!['name'];
-        pNumber = value.data()!['phonenumber'];
-        pEmail = value.data()!['email'];
-        pDOB = value.data()!['dob'];
-        pAddress = value.data()!['address'];
-      }).catchError((e) {
-        print(e);
-      });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -86,15 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: FutureBuilder(
-                              future: _fetch(),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return Text('Loading..');
-                                return Text('$pName');
-                              }),
-                            ),
+                            
                           ),
                         ],
                       ),
@@ -121,15 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: FutureBuilder(
-                              future: _fetch(),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return Text('Loading..');
-                                return Text('$pNumber');
-                              }),
-                            ),
+                            
                           ),
                         ],
                       ),
@@ -156,15 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: FutureBuilder(
-                              future: _fetch(),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return Text('Loading..');
-                                return Text('$pEmail');
-                              }),
-                            ),
+                            
                           ),
                         ],
                       ),
@@ -191,15 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: FutureBuilder(
-                              future: _fetch(),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return Text('Loading..');
-                                return Text('$pDOB');
-                              }),
-                            ),
+                            
                           ),
                         ],
                       ),
@@ -226,15 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: FutureBuilder(
-                              future: _fetch(),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return Text('Loading..');
-                                return Text('$pAddress');
-                              }),
-                            ),
+                            
                           ),
                         ],
                       ),

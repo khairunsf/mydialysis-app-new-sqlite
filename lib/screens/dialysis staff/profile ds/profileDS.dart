@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, curly_braces_in_flow_control_structures
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/editProfileDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/secondpartDS.dart';
@@ -15,30 +13,7 @@ class DSProfilePage extends StatefulWidget {
 }
 
 class _DSProfilePageState extends State<DSProfilePage> {
-  final user = FirebaseAuth.instance.currentUser!;
-  String? pName;
-  String? pNumber;
-  String? pEmail;
-  String? pDOB;
-  String? pAddress;
-
-  Future _fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null)
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((value) {
-        pName = value.data()!['name'];
-        pNumber = value.data()!['phonenumber'];
-        pEmail = value.data()!['email'];
-        pDOB = value.data()!['dob'];
-        pAddress = value.data()!['address'];
-      }).catchError((e) {
-        print(e);
-      });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -86,15 +61,7 @@ class _DSProfilePageState extends State<DSProfilePage> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: FutureBuilder(
-                                future: _fetch(),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.connectionState !=
-                                      ConnectionState.done)
-                                    return Text('Loading..');
-                                  return Text('$pName');
-                                }),
-                              ),
+                            
                             ),
                           ],
                         ),
@@ -121,15 +88,7 @@ class _DSProfilePageState extends State<DSProfilePage> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: FutureBuilder(
-                                future: _fetch(),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.connectionState !=
-                                      ConnectionState.done)
-                                    return Text('Loading..');
-                                  return Text('$pNumber');
-                                }),
-                              ),
+                              
                             ),
                           ],
                         ),
@@ -156,15 +115,7 @@ class _DSProfilePageState extends State<DSProfilePage> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: FutureBuilder(
-                                future: _fetch(),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.connectionState !=
-                                      ConnectionState.done)
-                                    return Text('Loading..');
-                                  return Text('$pEmail');
-                                }),
-                              ),
+                              
                             ),
                           ],
                         ),
@@ -191,15 +142,7 @@ class _DSProfilePageState extends State<DSProfilePage> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: FutureBuilder(
-                                future: _fetch(),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.connectionState !=
-                                      ConnectionState.done)
-                                    return Text('Loading..');
-                                  return Text('$pDOB');
-                                }),
-                              ),
+                              
                             ),
                           ],
                         ),
@@ -226,16 +169,8 @@ class _DSProfilePageState extends State<DSProfilePage> {
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: FutureBuilder(
-                                future: _fetch(),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.connectionState !=
-                                      ConnectionState.done)
-                                    return Text('Loading..');
-                                  return Text('$pAddress');
-                                }),
+                              
                               ),
-                            ),
                           ],
                         ),
 

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -18,8 +17,7 @@ class DSBottomBarPage extends StatefulWidget {
 }
 
 class _DSBottomBarPageState extends State<DSBottomBarPage> {
-  final user = FirebaseAuth.instance.currentUser;
-
+  
   int _selectedIndex = 0;
 
   void _navigateButtombar(int index) {

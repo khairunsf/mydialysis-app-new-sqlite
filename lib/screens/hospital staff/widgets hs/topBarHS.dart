@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, curly_braces_in_flow_control_structures
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/main.dart';
@@ -15,20 +13,6 @@ class HSTopBar extends StatefulWidget {
 }
 
 class _HSTopBarState extends State<HSTopBar> {
-  String? uName;
-  DatabaseHelper? _databaseHelper;
-
-  Future initDb() async {
-    await _databaseHelper!.database;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    _databaseHelper = DatabaseHelper();
-    initDb();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +35,7 @@ class _HSTopBarState extends State<HSTopBar> {
             padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                FutureBuilder(
-                  future: _databaseHelper?.getUserbyEmail(uemail!),
-                  builder: ((context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done)
-                      return Text('Loading..');
-                    return Text('Hello, $uName',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ));
-                  }),
-                ),
+                Text('Hello'),
                 SizedBox(
                   height: 10,
                 ),

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, prefer_const_literals_to_create_immutables
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/screens/patient/dc_directory/dc_directory.dart';
 import 'package:mydialysis_app/screens/patient/treatment%20record/treatment_record.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
@@ -14,7 +14,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final user = FirebaseAuth.instance.currentUser;
+  DatabaseHelper? _databaseHelper;
+
+  Future initDb() async {
+    await _databaseHelper!.database;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    initDb();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +45,9 @@ class _HomePageState extends State<HomePage> {
               children: [
                 //1st part
                 TopBar(),
-
                 SizedBox(
                   height: 10,
                 ),
-
                 //2nd part
                 Container(
                   padding:

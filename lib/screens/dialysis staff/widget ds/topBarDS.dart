@@ -14,20 +14,6 @@ class DSTopBar extends StatefulWidget {
 }
 
 class _DSTopBarState extends State<DSTopBar> {
-  String? uName;
-  DatabaseHelper? _databaseHelper;
-
-  Future initDb() async {
-    await _databaseHelper!.database;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    _databaseHelper = DatabaseHelper();
-    initDb();
-    super.initState();
-  }
   
   @override
   Widget build(BuildContext context) {
@@ -50,17 +36,7 @@ class _DSTopBarState extends State<DSTopBar> {
             padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                FutureBuilder(
-                  future: _databaseHelper?.getUserbyEmail(uemail!),
-                  builder: ((context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done)
-                      return Text('Loading..');
-                    return Text('Hello, $uName',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ));
-                  }),
-                ),
+                Text('Hello'),
                 SizedBox(
                   height: 10,
                 ),

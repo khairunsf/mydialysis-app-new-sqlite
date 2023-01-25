@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/appointment_hs/appointmentPageHS.dart';
@@ -15,7 +14,6 @@ class HSBottomBarPage extends StatefulWidget {
 }
 
 class _HSBottomBarPageState extends State<HSBottomBarPage> {
-  final user = FirebaseAuth.instance.currentUser;
 
   int _selectedIndex = 0;
 

@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 
@@ -14,6 +14,19 @@ class TreatmentRecordDetails extends StatefulWidget {
 }
 
 class _TreatmentRecordDetailsState extends State<TreatmentRecordDetails> {
+DatabaseHelper? _databaseHelper;
+
+  Future initDb() async {
+    await _databaseHelper!.database;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    initDb();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
