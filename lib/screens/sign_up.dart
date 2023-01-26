@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names, depend_on_referenced_packages, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names, depend_on_referenced_packages, prefer_final_fields, unused_field, avoid_print, unnecessary_new
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/db/databaseHelper.dart';
@@ -15,6 +15,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final _formKey = new GlobalKey<FormState>();
   DatabaseHelper? _databaseHelper;
 
   Future initDb() async {
@@ -45,6 +46,7 @@ class _SignupPageState extends State<SignupPage> {
   final _phoneNumberController = TextEditingController();
   final _dobController = TextEditingController();
   final _addressController = TextEditingController();
+  final _icController = TextEditingController();
   DateFormat dateFormat = DateFormat("dd-MM-yyyy");
 
   @override
@@ -57,6 +59,7 @@ class _SignupPageState extends State<SignupPage> {
     _dobController.dispose();
     _addressController.dispose();
     _confirmPasswordController.dispose();
+    _icController.dispose();
     super.dispose();
   }
 
@@ -75,6 +78,7 @@ class _SignupPageState extends State<SignupPage> {
         'urole': selectedRole,
         'upwd': _passwordController.text.trim(),
         'ucpwd': _confirmPasswordController.text.trim(),
+        'uic': _icController.text.trim(),
       });
 
       showDialog<String>(
@@ -129,502 +133,562 @@ class _SignupPageState extends State<SignupPage> {
         child: SingleChildScrollView(
           reverse: true,
           child: Center(
-            child: Column(
-              children: [
-                //App Logo
-                Image(
-                  image: AssetImage('images/mydialysis_logo.png'),
-                  height: 200,
-                  width: 200,
-                ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  //App Logo
+                  Image(
+                    image: AssetImage('images/mydialysis_logo.png'),
+                    height: 200,
+                    width: 200,
+                  ),
 
-                //Sign Up name
-                Text(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 20, color: Colors.green[900]),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                  //Sign Up name
+                  Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 20, color: Colors.green[900]),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
 
-                //Name textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
+                  //Name textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Name',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Name',
-                        ),
-                      ),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Email textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Email Address',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Email Address',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Phone Number textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Phone Number',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _phoneNumberController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Phone Number',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Date of Birth textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Date of Birth',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _dobController,
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.calendar_month_outlined),
-                          border: InputBorder.none,
-                          hintText: 'Select Date',
-                        ),
-                        onTap: (() async {
-                          DateTime? pickeddate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1700),
-                              lastDate: DateTime(2101));
-                          if (pickeddate != null) {
-                            setState(() {
-                              _dobController.text =
-                                  dateFormat.format(pickeddate);
-                            });
-                          }
-                        }),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Address textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Address',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _addressController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Address',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Password textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Password',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        obscureText: true,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Password',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Confirm Password textfield
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Confirm Password',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        obscureText: true,
-                        controller: _confirmPasswordController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Confirm Password',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Role
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Role',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 198.0),
-                      child: DropdownButton(
-                        items: _roleType
-                            .map((String value) => DropdownMenuItem(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.black),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedRole = value;
-                          });
-                        },
-                        value: selectedRole,
-                        isExpanded: false,
-                        hint: Text(
-                          'Select Your Role',
-                          style: TextStyle(color: Colors.grey.shade700),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                //Given Code
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Given Code',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _givencodeController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Code',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-
-                //Button
-                GestureDetector(
-                  onTap: signUp,
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15.0),
-                      decoration: BoxDecoration(
-                        color: Colors.green[700],
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
+                    child: TextFormField(
+                      controller: _nameController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Name";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Name',
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 15,
+                  ),
 
-                SizedBox(
-                  height: 10,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Already have an account? ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: widget.showLoginPage,
-                        child: Text(
-                          'Login',
+                  //Email textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Email Address',
                           style: TextStyle(
-                            color: Colors.indigo[400],
-                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Email";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Email Address',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Phone Number textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Phone Number',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _phoneNumberController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Phone Number";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Phone Number',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //IC Number textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'IC Number',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _icController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter IC Number";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter IC Number',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Date of Birth textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Date of Birth',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _dobController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Select Date of Birth";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Select Date',
+                      ),
+                      onTap: (() async {
+                        DateTime? pickeddate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1700),
+                            lastDate: DateTime(2101));
+                        if (pickeddate != null) {
+                          setState(() {
+                            _dobController.text = dateFormat.format(pickeddate);
+                          });
+                        }
+                      }),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Address textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Address',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _addressController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Address";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Address',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Password textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Password',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Password";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Password',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Confirm Password textfield
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Confirm Password',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Password For Confirmation";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Password For Confirmation',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Role
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Role',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Select Your Role',
+                      ),
+                      items: _roleType
+                          .map((String value) => DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.black),
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedRole = value;
+                        });
+                      },
+                      value: selectedRole,
+                      isExpanded: false,
+                      validator: (value) {
+                        if (value == null) {
+                          return "Role is required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Given Code
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Given Code',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: _givencodeController,
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please Enter Given Code";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Enter Given Code',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  //Button
+                  GestureDetector(
+                    onTap: (() {
+                      if (_formKey.currentState!.validate()) {
+                        signUp();
+                      } else {
+                        print("Valid Failed");
+                      }
+                    }),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        decoration: BoxDecoration(
+                          color: Colors.green[700],
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                ),
-              ],
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Already have an account? ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: widget.showLoginPage,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.indigo[400],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

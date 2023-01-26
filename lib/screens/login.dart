@@ -84,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
     final SharedPreferences sp = await prefs;
 
     sp.setInt("user_id", user.uid!);
+    sp.setString("user_ic", user.uic!);
     sp.setString("user_name", user.uname!);
     sp.setString("email", user.uemail!);
     sp.setString("password", user.upwd!);

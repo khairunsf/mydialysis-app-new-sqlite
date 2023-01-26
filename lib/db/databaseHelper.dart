@@ -10,8 +10,9 @@ class DatabaseHelper {
   static DatabaseHelper? _databaseHelper; //singleton dbhelper
   static Database? _database;
 
-  String userTable = 'user_table';
+  String userTable = 'userTable';
   String coluid = 'uid';
+  String coluic = 'uic';
   String coluname = 'uname';
   String colupwd = 'upwd';
   String colucpwd = 'ucpwd';
@@ -42,7 +43,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + '/myDialysis.db'; //db name
+    String path = directory.path + '/myDialysis-new.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -53,7 +54,7 @@ class DatabaseHelper {
   //creating db(table and fields)
   void _createDB(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $userTable($coluid INTEGER PRIMARY KEY AUTOINCREMENT, $coluname TEXT NULL, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)');
+        'CREATE TABLE $userTable($coluid INTEGER PRIMARY KEY AUTOINCREMENT, $coluname TEXT NULL, $coluic TEXT NULL, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)');
   }
 
   //fetch operation: get all data from db
@@ -78,11 +79,11 @@ class DatabaseHelper {
   }
 
   //fetch one user only by email and password
-  Future<UserModel?> getLoginUser(
-      String uemail, String upwd) async {
+  Future<UserModel?> getLoginUser(String uemail, String upwd) async {
     final result = await _database!.rawQuery(
-        "SELECT * FROM $userTable WHERE $coluemail = ? AND $colupwd = ?", [uemail, upwd]);
-        if (result.isNotEmpty) {
+        "SELECT * FROM $userTable WHERE $coluemail = ? AND $colupwd = ?",
+        [uemail, upwd]);
+    if (result.isNotEmpty) {
       return UserModel.fromJson(result.first);
     }
     return null;

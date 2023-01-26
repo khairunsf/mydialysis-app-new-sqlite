@@ -5,6 +5,7 @@ import 'dart:core';
 class UserModel {
   int? uid;
   String? uname,
+      uic,
       upwd,
       ucpwd,
       uphoneNum,
@@ -16,6 +17,7 @@ class UserModel {
 
   UserModel(
       {this.uid,
+      this.uic,
       this.uname,
       this.upwd,
       this.ucpwd,
@@ -30,6 +32,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
         uid: json['uid'],
+        uic: json['uic'],
         uname: json['uname'],
         upwd: json['upwd'],
         ucpwd: json['ucpwd'],
