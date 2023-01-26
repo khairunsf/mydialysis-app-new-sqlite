@@ -54,7 +54,7 @@ class DatabaseHelper {
   //creating db(table and fields)
   void _createDB(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $userTable($coluid INTEGER PRIMARY KEY AUTOINCREMENT, $coluname TEXT NULL, $coluic TEXT NULL, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)');
+        'CREATE TABLE $userTable($coluic TEXT PRIMARY KEY , $coluname TEXT NULL, $coluid INTEGER AUTOINCREMENT, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)');
   }
 
   //fetch operation: get all data from db
