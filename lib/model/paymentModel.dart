@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class PaymentModel {
-  int? bid, pid;
+  int? bid;
   String? bdate,
       btime,
       dtprice,
@@ -17,7 +17,6 @@ class PaymentModel {
   PaymentModel(
       {this.sid,
       this.bid,
-      this.pid,
       this.bdate,
       this.btime,
       this.dtprice,
@@ -35,7 +34,6 @@ class PaymentModel {
       sid: json['sid'],
       uid: json['uid'],
       bid: json['bid'],
-      pid: json['pid'],
       bdate: json['bdate'],
       btime: json['btime'],
       dtprice: json['dtprice'],
