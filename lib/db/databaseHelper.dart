@@ -10,6 +10,7 @@ class DatabaseHelper {
   static DatabaseHelper? _databaseHelper; //singleton dbhelper
   static Database? _database;
 
+  //userTable
   String userTable = 'userTable';
   String coluid = 'uid';
   String coluic = 'uic';
@@ -22,6 +23,89 @@ class DatabaseHelper {
   String coluaddress = 'uaddress';
   String colugivenCode = 'ugivenCode';
   String colurole = 'urole';
+
+  //slotTable
+  String slotTable = 'slotTable';
+  String colsid = 'sid';
+  String colstime = 'stime';
+  String colsdate = 'sdate';
+  String colsstatus = 'sstatus';
+  String colsrequestid = 'srequestid';
+  String colsrdate = 'srdate';
+  String colsrtime = 'srtime';
+  String colsrStatus = 'srStatus';
+  String colsrReason = 'srReason';
+  String colsuic = 'uic';
+
+  //treatmentTable
+  String treatmentTable = 'treatmentTable';
+  String coltrid = 'trid';
+  String colbbw = 'bbweight';
+  String colbbp = 'bbpreasure';
+  String colbhr = 'bhrate';
+  String colbtemp = 'btemp';
+  String coldbp1 = 'dbpreasure1';
+  String coldbp2 = 'dbpreasure2';
+  String coldbp3 = 'dbpreasure3';
+  String coldbp4 = 'dbpreasure4';
+  String coldbp5 = 'dbpreasure5';
+  String coldhr1 = 'dhrate1';
+  String coldhr2 = 'dhrate2';
+  String coldhr3 = 'dhrate3';
+  String coldhr4 = 'dhrate4';
+  String coldhr5 = 'dhrate5';
+  String colabw = 'abweight';
+  String colabp = 'abpreasure';
+  String colahr = 'ahrate';
+  String colatemp = 'atemp';
+  String coltruic = 'uic';
+  String coltrsid = 'sid';
+
+  //paymentTable
+  String paymentTable = 'paymentTable';
+  String colbid = 'bid';
+  String colpid = 'pid';
+  String colbdate = 'bdate';
+  String colbtime = 'btime';
+  String coldtprice = 'dtprice';
+  String colmealprice = 'mealprice';
+  String coltotalprice = 'totalprice';
+  String colbstatus = 'bstatus';
+  String colpdate = 'pdate';
+  String colptime = 'ptime';
+  String colpamount = 'pamount';
+  String colpsid = 'sid';
+  String colpuic = 'uic';
+
+  //directoryTable
+  String directoryTable = 'directoryTable';
+  String coldid = 'did';
+  String coldname = 'dname';
+  String coldaddress = 'daddress';
+  String coldcnumber = 'dcnumber';
+  String coldlogo = 'dlogo';
+  String coldkm = 'dkm';
+  String coldopenhr = 'dopenhr';
+  String coldclosehr = 'dclosehr';
+  String coldrating = 'drating';
+
+  //appointmentTable
+  String appointmentTable = 'appointmentTable';
+  String colaid = 'aid';
+  String colarequestid = 'arequestid';
+  String colaplace = 'aplace';
+  String coladate = 'adate';
+  String colatime = 'atime';
+  String coldrname = 'drname';
+  String coldrdetail = 'drdetail';
+  String coldrroom = 'drroom';
+  String colastatus = 'astatus';
+  String colardate = 'ardate';
+  String colartime = 'artime';
+  String colarreason = 'arreason';
+  String colarstatus = 'arstatus';
+  String colareview = 'areview';
+  String colauic = 'uic';
 
   DatabaseHelper._createInstance(); //named constructor to create instance of dbhelper
 
@@ -43,7 +127,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + '/myDialysis-new.db'; //db name
+    String path = directory.path + '/myDialysis.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -53,8 +137,31 @@ class DatabaseHelper {
 
   //creating db(table and fields)
   void _createDB(Database db, int newVersion) async {
-    await db.execute(
-        'CREATE TABLE $userTable($coluic TEXT PRIMARY KEY , $coluname TEXT NULL, $coluid INTEGER AUTOINCREMENT, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)');
+    //user table
+    String table1 =
+        'CREATE TABLE [IF NOT EXISTS] $userTable($coluic TEXT PRIMARY KEY , $coluname TEXT NULL, $coluid INTEGER AUTOINCREMENT, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)';
+    //slot table
+    String table2 =
+        'CREATE TABLE [IF NOT EXISTS] $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrequestid INTEGER AUTOINCREMENT, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $colsuic TEXT FOREIGN KEY NULL)';
+    //treatment table
+    String table3 =
+        'CREATE TABLE [IF NOT EXISTS] $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $coltruic TEXT FOREIGN KEY NULL, $coltrsid INTEGER FOREIGN KEY NULL)';
+    //payment table
+    String table4 =
+        'CREATE TABLE [IF NOT EXISTS] $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colpid INTEGER AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colpuic TEXT FOREIGN KEY NULL, $colpsid INTEGER FOREIGN KEY NULL)';
+    //directory table
+    String table5 =
+        'CREATE TABLE [IF NOT EXISTS] $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm FLOAT NULL, $coldopenhr FLOAT NULL, $coldclosehr FLOAT NULL, $coldrating TEXT NULL)';
+    //appointment table
+    String table6 =
+        'CREATE TABLE [IF NOT EXISTS] $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colarequestid INTEGER AUTOINCREMENT, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $colauic TEXT FOREIGN KEY NULL)';
+
+    await db.execute(table1);
+    await db.execute(table2);
+    await db.execute(table3);
+    await db.execute(table4);
+    await db.execute(table5);
+    await db.execute(table6);
   }
 
   //fetch operation: get all data from db
