@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class AppointmentModel {
-  int? aid, arequestid;
+  int? aid;
   String? aplace,
       adate,
       atime,
@@ -14,11 +14,10 @@ class AppointmentModel {
       arreason,
       arstatus,
       areview,
-      uic;
+      uid;
 
   AppointmentModel(
       {this.aid,
-      this.arequestid,
       this.aplace,
       this.adate,
       this.atime,
@@ -31,14 +30,13 @@ class AppointmentModel {
       this.drname,
       this.drdetail,
       this.drroom,
-      this.uic});
+      this.uid});
 
   //from json to class model
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
     return AppointmentModel(
         aid: json['aid'],
-        uic: json['uic'],
-        arequestid: json['arequestid'],
+        uid: json['uid'],
         aplace: json['aplace'],
         adate: json['adate'],
         atime: json['atime'],

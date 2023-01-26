@@ -5,34 +5,31 @@ class SlotModel {
   String? stime,
       sdate,
       sstatus,
-      srequestid,
       srdate,
       srtime,
       srStatus,
       srReason,
-      uic;
+      uid;
 
   SlotModel(
       {this.sid,
       this.sdate,
       this.stime,
       this.sstatus,
-      this.srequestid,
       this.srdate,
       this.srtime,
       this.srStatus,
       this.srReason,
-      this.uic});
+      this.uid});
 
   //from json to class model
   factory SlotModel.fromJson(Map<String, dynamic> json) {
     return SlotModel(
         sid: json['sid'],
-        uic: json['uic'],
+        uid: json['uid'],
         sdate: json['sdate'],
         stime: json['stime'],
         sstatus: json['sstatus'],
-        srequestid: json['srequestid'],
         srdate: json['srdate'],
         srtime: json['srtime'],
         srStatus: json['srStatus'],

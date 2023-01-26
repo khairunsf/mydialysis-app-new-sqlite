@@ -30,12 +30,11 @@ class DatabaseHelper {
   String colstime = 'stime';
   String colsdate = 'sdate';
   String colsstatus = 'sstatus';
-  String colsrequestid = 'srequestid';
   String colsrdate = 'srdate';
   String colsrtime = 'srtime';
   String colsrStatus = 'srStatus';
   String colsrReason = 'srReason';
-  String colsuic = 'uic';
+  String colsuid = 'uid';
 
   //treatmentTable
   String treatmentTable = 'treatmentTable';
@@ -58,7 +57,7 @@ class DatabaseHelper {
   String colabp = 'abpreasure';
   String colahr = 'ahrate';
   String colatemp = 'atemp';
-  String coltruic = 'uic';
+  String coltruid = 'uid';
   String coltrsid = 'sid';
 
   //paymentTable
@@ -75,7 +74,7 @@ class DatabaseHelper {
   String colptime = 'ptime';
   String colpamount = 'pamount';
   String colpsid = 'sid';
-  String colpuic = 'uic';
+  String colpuid = 'uid';
 
   //directoryTable
   String directoryTable = 'directoryTable';
@@ -92,7 +91,6 @@ class DatabaseHelper {
   //appointmentTable
   String appointmentTable = 'appointmentTable';
   String colaid = 'aid';
-  String colarequestid = 'arequestid';
   String colaplace = 'aplace';
   String coladate = 'adate';
   String colatime = 'atime';
@@ -105,7 +103,7 @@ class DatabaseHelper {
   String colarreason = 'arreason';
   String colarstatus = 'arstatus';
   String colareview = 'areview';
-  String colauic = 'uic';
+  String colauid = 'uid';
 
   DatabaseHelper._createInstance(); //named constructor to create instance of dbhelper
 
@@ -139,22 +137,22 @@ class DatabaseHelper {
   void _createDB(Database db, int newVersion) async {
     //user table
     String table1 =
-        'CREATE TABLE [IF NOT EXISTS] $userTable($coluic TEXT PRIMARY KEY , $coluname TEXT NULL, $coluid INTEGER AUTOINCREMENT, $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)';
+        'CREATE TABLE $userTable($coluid INTEGER PRIMARY KEY AUTOINCREMENT, $coluname TEXT NULL, $coluic TEXT UNIQUE , $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL UNIQUE, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)';
     //slot table
     String table2 =
-        'CREATE TABLE [IF NOT EXISTS] $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrequestid INTEGER AUTOINCREMENT, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $colsuic TEXT FOREIGN KEY NULL)';
+        'CREATE TABLE $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid))';
     //treatment table
     String table3 =
-        'CREATE TABLE [IF NOT EXISTS] $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $coltruic TEXT FOREIGN KEY NULL, $coltrsid INTEGER FOREIGN KEY NULL)';
+        'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid), $colsid INTEGER, FOREIGN KEY ($colsid) REFERENCES $slotTable($colsid))';
     //payment table
     String table4 =
-        'CREATE TABLE [IF NOT EXISTS] $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colpid INTEGER AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colpuic TEXT FOREIGN KEY NULL, $colpsid INTEGER FOREIGN KEY NULL)';
+        'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colpid INTEGER AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid), $colsid INTEGER, FOREIGN KEY ($colsid) REFERENCES $slotTable($colsid))';
     //directory table
     String table5 =
-        'CREATE TABLE [IF NOT EXISTS] $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm FLOAT NULL, $coldopenhr FLOAT NULL, $coldclosehr FLOAT NULL, $coldrating TEXT NULL)';
+        'CREATE TABLE $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm FLOAT NULL, $coldopenhr FLOAT NULL, $coldclosehr FLOAT NULL, $coldrating TEXT NULL)';
     //appointment table
     String table6 =
-        'CREATE TABLE [IF NOT EXISTS] $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colarequestid INTEGER AUTOINCREMENT, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $colauic TEXT FOREIGN KEY NULL)';
+        'CREATE TABLE $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid))';
 
     await db.execute(table1);
     await db.execute(table2);
