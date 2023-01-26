@@ -5,9 +5,6 @@ import 'package:mydialysis_app/model/userModel.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/bottomBarDS.dart';
 import 'package:mydialysis_app/screens/forgot_pwd.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/bottomBarHS.dart';
-import 'package:mydialysis_app/screens/patient/home_patient.dart';
-import 'package:mydialysis_app/screens/testing_Page.dart';
-import 'package:mydialysis_app/services/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/databaseHelper.dart';
 import 'patient/widgets patient/bottombar.dart';
@@ -256,13 +253,6 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: (() {
                         if (_formKey.currentState!.validate()) {
                           login();
-                          // final prefs = await SharedPreferences.getInstance();
-                          //   prefs.setBool('isLoggedIn', true);
-                          //  Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: ((context) => HomePage())));
-                          // print("Valid Success");
                         } else {
                           print("Valid Failed");
                         }

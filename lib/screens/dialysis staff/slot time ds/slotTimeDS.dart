@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/tabs%20ds/slot%20time%20tabs/addSlotTime.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/tabs%20ds/slot%20time%20tabs/allSlotTime.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/tabs%20ds/slot%20time%20tabs/requestSlotTime.dart';
-
 import '../widget ds/secondpartDS.dart';
 import '../widget ds/topBarDS.dart';
 
