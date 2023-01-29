@@ -11,8 +11,7 @@ class PaymentModel {
       pdate,
       ptime,
       pamount,
-      sid,
-      uid;
+      sid;
 
   PaymentModel(
       {this.sid,
@@ -25,14 +24,12 @@ class PaymentModel {
       this.bstatus,
       this.pdate,
       this.ptime,
-      this.pamount,
-      this.uid});
+      this.pamount,});
 
   //from json to class model
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
       sid: json['sid'],
-      uid: json['uid'],
       bid: json['bid'],
       bdate: json['bdate'],
       btime: json['btime'],

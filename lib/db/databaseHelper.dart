@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:mydialysis_app/model/userModel.dart';
 
+import '../model/slotModel.dart';
+
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper; //singleton dbhelper
   static Database? _database;
@@ -162,27 +164,26 @@ class DatabaseHelper {
     await db.execute(table6);
   }
 
+  
+  //USER CRUD
   //fetch operation: get all data from db
   Future<List<UserModel>> getAllUser() async {
     final data = await _database!.query(userTable);
     List<UserModel> result = data.map((e) => UserModel.fromJson(e)).toList();
     return result;
   }
-
   //fetch one user only
   Future<List<Map<String, dynamic>>> getUserbyId(int uid) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $userTable WHERE $coluid = $uid');
     return result;
   }
-
   //fetch one user only by email
   Future<List<Map<String, dynamic>>> getUserbyEmail(String uemail) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $userTable WHERE $coluemail = $uemail');
     return result;
   }
-
   //fetch one user only by email and password
   Future<UserModel?> getLoginUser(String uemail, String upwd) async {
     final result = await _database!.rawQuery(
@@ -193,20 +194,17 @@ class DatabaseHelper {
     }
     return null;
   }
-
   //insert operation: insert data obj from db
   Future<int> insertUser(Map<String, dynamic> row) async {
     final result = await _database!.insert(userTable, row);
     return result;
   }
-
   //update operation: update data obj from db & save to db
   Future<int> updateUser(int uid, Map<String, dynamic> row) async {
     final result = await _database!
         .update(userTable, row, where: '$coluid = ?', whereArgs: [uid]);
     return result;
   }
-
   //delete operation: delete data obj from db
   Future<int> deleteUser(int uid) async {
     var db = await this.database;
@@ -214,13 +212,44 @@ class DatabaseHelper {
         await db.rawDelete('DELETE FROM $userTable WHERE $coluid = $uid');
     return result;
   }
-
   //get number of data obj in db
   Future<int?> getCount() async {
     Database db = await this.database;
     List<Map<String, dynamic>> x =
         await db.query('SELECT COUNT (*) from $userTable');
     int? result = Sqflite.firstIntValue(x);
+    return result;
+  }
+
+  //SLOT TIME CRUD
+  //fetch all slot data
+  Future<List<SlotModel>> getAllSlot() async {
+    final data = await _database!.query(userTable);
+    List<SlotModel> result = data.map((e) => SlotModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one slot data only by uid
+  Future<List<Map<String, dynamic>>> getSlotData(int sid) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $slotTable WHERE $colsid = $sid');
+    return result;
+  }
+  //insert slot data obj from db
+  Future<int> insertSlot(Map<String, dynamic> row) async {
+    final result = await _database!.insert(slotTable, row);
+    return result;
+  }
+  //update slot data obj from db & save to db
+  Future<int> updateSlot(int sid, Map<String, dynamic> row) async {
+    final result = await _database!
+        .update(slotTable, row, where: '$colsid = ?', whereArgs: [sid]);
+    return result;
+  }
+  //delete slot data obj from db
+  Future<int> deleteSlot(int sid) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $slotTable WHERE $colsid = $sid');
     return result;
   }
 }

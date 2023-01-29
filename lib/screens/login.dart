@@ -53,18 +53,24 @@ class _LoginPageState extends State<LoginPage> {
           if (userData.urole == 'Patient') {
             final prefs = await SharedPreferences.getInstance();
             prefs.setBool('isLoggedIn', true);
-            Navigator.push(context,
-                MaterialPageRoute(builder: ((context) => PBottomBarPage())));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => PBottomBarPage()),
+                (Route<dynamic> route) => false);
           } else if (userData.urole == 'Dialysis Staff') {
             final prefs = await SharedPreferences.getInstance();
             prefs.setBool('isLoggedIn', true);
-            Navigator.push(context,
-                MaterialPageRoute(builder: ((context) => DSBottomBarPage())));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => DSBottomBarPage()),
+                (Route<dynamic> route) => false);
           } else if (userData.urole == 'Hospital Staff') {
             final prefs = await SharedPreferences.getInstance();
             prefs.setBool('isLoggedIn', true);
-            Navigator.push(context,
-                MaterialPageRoute(builder: ((context) => HSBottomBarPage())));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => HSBottomBarPage()),
+                (Route<dynamic> route) => false);
           } else {
             AlertDialog(
               title: Text("Error: User Not Found"),
