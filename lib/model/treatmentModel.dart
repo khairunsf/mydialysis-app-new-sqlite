@@ -20,7 +20,9 @@ class TreatmentModel {
       abpreasure,
       ahrate,
       atemp,
-      sid;
+      pname,
+      trdate,
+      trtime;
 
   TreatmentModel(
       {this.trid,
@@ -42,13 +44,17 @@ class TreatmentModel {
       this.abpreasure,
       this.ahrate,
       this.atemp,
-      this.sid});
+      this.trdate,
+      this.trtime,
+      this.pname});
 
   //from json to class model
   factory TreatmentModel.fromJson(Map<String, dynamic> json) {
     return TreatmentModel(
         trid: json['trid'],
-        sid: json['sid'],
+        pname: json['pname'],
+        trdate: json['trdate'],
+        trtime: json['trttime'],
         bbweight: json['bbweight'],
         bbpreasure: json['bbpreasure'],
         bhrate: json['bhrate'],

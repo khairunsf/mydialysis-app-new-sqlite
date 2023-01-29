@@ -14,7 +14,7 @@ class AppointmentModel {
       arreason,
       arstatus,
       areview,
-      uid;
+      pname;
 
   AppointmentModel(
       {this.aid,
@@ -30,13 +30,13 @@ class AppointmentModel {
       this.drname,
       this.drdetail,
       this.drroom,
-      this.uid});
+      this.pname});
 
   //from json to class model
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
     return AppointmentModel(
         aid: json['aid'],
-        uid: json['uid'],
+        pname: json['pname'],
         aplace: json['aplace'],
         adate: json['adate'],
         atime: json['atime'],

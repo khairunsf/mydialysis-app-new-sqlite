@@ -36,7 +36,7 @@ class _HSTopBarState extends State<HSTopBar> {
   Widget build(BuildContext context) {
     var uemail;
     return Container(
-      height: 120,
+      height: 80,
       color: Colors.blue[50],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,10 +50,10 @@ class _HSTopBarState extends State<HSTopBar> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 35),
             child: Column(
               children: [
-                Text('Hello $currentUserName'),
+                Text('Hello $currentUserName',style: TextStyle(fontSize: 18)),
                 SizedBox(
                   height: 10,
                 ),

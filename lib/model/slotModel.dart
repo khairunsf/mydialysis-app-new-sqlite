@@ -9,7 +9,7 @@ class SlotModel {
       srtime,
       srStatus,
       srReason,
-      uid;
+      pname;
 
   SlotModel(
       {this.sid,
@@ -20,13 +20,13 @@ class SlotModel {
       this.srtime,
       this.srStatus,
       this.srReason,
-      this.uid});
+      this.pname});
 
   //from json to class model
   factory SlotModel.fromJson(Map<String, dynamic> json) {
     return SlotModel(
         sid: json['sid'],
-        uid: json['uid'],
+        pname: json['pname'],
         sdate: json['sdate'],
         stime: json['stime'],
         sstatus: json['sstatus'],

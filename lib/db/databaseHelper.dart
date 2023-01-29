@@ -5,8 +5,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:mydialysis_app/model/userModel.dart';
-
+import '../model/appointmentModel.dart';
+import '../model/directoryModel.dart';
+import '../model/paymentModel.dart';
 import '../model/slotModel.dart';
+import '../model/treatmentModel.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper; //singleton dbhelper
@@ -36,7 +39,7 @@ class DatabaseHelper {
   String colsrtime = 'srtime';
   String colsrStatus = 'srStatus';
   String colsrReason = 'srReason';
-  String colsuid = 'uid';
+  String colspname = 'pname';
 
   //treatmentTable
   String treatmentTable = 'treatmentTable';
@@ -59,8 +62,9 @@ class DatabaseHelper {
   String colabp = 'abpreasure';
   String colahr = 'ahrate';
   String colatemp = 'atemp';
-  String coltruid = 'uid';
-  String coltrsid = 'sid';
+  String coltrpname = 'pname';
+  String coltrdate = 'trdate';
+  String coltrtime = 'trtime';
 
   //paymentTable
   String paymentTable = 'paymentTable';
@@ -75,8 +79,7 @@ class DatabaseHelper {
   String colpdate = 'pdate';
   String colptime = 'ptime';
   String colpamount = 'pamount';
-  String colpsid = 'sid';
-  String colpuid = 'uid';
+  String colppname = 'pname';
 
   //directoryTable
   String directoryTable = 'directoryTable';
@@ -105,7 +108,7 @@ class DatabaseHelper {
   String colarreason = 'arreason';
   String colarstatus = 'arstatus';
   String colareview = 'areview';
-  String colauid = 'uid';
+  String colapname = 'pname';
 
   DatabaseHelper._createInstance(); //named constructor to create instance of dbhelper
 
@@ -127,7 +130,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + '/myDialysis.db'; //db name
+    String path = directory.path + '/myDialysis-app.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -142,19 +145,19 @@ class DatabaseHelper {
         'CREATE TABLE $userTable($coluid INTEGER PRIMARY KEY AUTOINCREMENT, $coluname TEXT NULL, $coluic TEXT UNIQUE , $colupwd TEXT NULL, $colucpwd TEXT NULL, $coluphoneNum TEXT NULL, $coluemail TEXT NULL UNIQUE, $coludob TEXT NULL, $coluaddress TEXT NULL, $colugivenCode TEXT NULL, $colurole TEXT NULL)';
     //slot table
     String table2 =
-        'CREATE TABLE $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid))';
+        'CREATE TABLE $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $colspname TEXT NULL)';
     //treatment table
     String table3 =
-        'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $colsid INTEGER, FOREIGN KEY ($colsid) REFERENCES $slotTable($colsid))';
+        'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $coltrpname TEXT NULL, $coltrdate DATE NULL, $coltrtime TIME NULL)';
     //payment table
     String table4 =
-        'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colsid INTEGER, FOREIGN KEY ($colsid) REFERENCES $slotTable($colsid))';
+        'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colppname TEXT NULL)';
     //directory table
     String table5 =
         'CREATE TABLE $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm FLOAT NULL, $coldopenhr FLOAT NULL, $coldclosehr FLOAT NULL, $coldrating TEXT NULL)';
     //appointment table
     String table6 =
-        'CREATE TABLE $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $coluid INTEGER, FOREIGN KEY ($coluid) REFERENCES $userTable($coluid))';
+        'CREATE TABLE $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $colapname)';
 
     await db.execute(table1);
     await db.execute(table2);
@@ -176,6 +179,12 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getUserbyId(int uid) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $userTable WHERE $coluid = $uid');
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getPatient() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $userTable WHERE $colurole = "Patient"');
     return result;
   }
   //fetch one user only by email
@@ -224,8 +233,14 @@ class DatabaseHelper {
   //SLOT TIME CRUD
   //fetch all slot data
   Future<List<SlotModel>> getAllSlot() async {
-    final data = await _database!.query(userTable);
+    final data = await _database!.query(slotTable);
     List<SlotModel> result = data.map((e) => SlotModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getSlot() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $slotTable');
     return result;
   }
   //fetch one slot data only by uid
@@ -250,6 +265,134 @@ class DatabaseHelper {
     var db = await this.database;
     int result =
         await db.rawDelete('DELETE FROM $slotTable WHERE $colsid = $sid');
+    return result;
+  }
+
+  //TREATMENT DATA CRUD
+  //fetch all treatment data
+  Future<List<TreatmentModel>> getAllTreatment() async {
+    final data = await _database!.query(treatmentTable);
+    List<TreatmentModel> result = data.map((e) => TreatmentModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one treatment data only by id
+  Future<List<Map<String, dynamic>>> getTreatmentData(int trid) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $treatmentTable WHERE $coltrid = $trid');
+    return result;
+  }
+  //insert treatment data obj from db
+  Future<int> insertData(Map<String, dynamic> row) async {
+    final result = await _database!.insert(treatmentTable, row);
+    return result;
+  }
+  //update tr data data obj from db & save to db
+  Future<int> updateData(int trid, Map<String, dynamic> row) async {
+    final result = await _database!
+        .update(treatmentTable, row, where: '$coltrid = ?', whereArgs: [trid]);
+    return result;
+  }
+  //delete tr data data obj from db
+  Future<int> deleteData(int trid) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $treatmentTable WHERE $coltrid = $trid');
+    return result;
+  }
+
+  //PAYMENT CRUD
+  //fetch all payment data
+  Future<List<PaymentModel>> getAllPayment() async {
+    final data = await _database!.query(paymentTable);
+    List<PaymentModel> result = data.map((e) => PaymentModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one payment data only by bid
+  Future<List<Map<String, dynamic>>> getPayment(int bid) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $paymentTable WHERE $colbid = $bid');
+    return result;
+  }
+  //insert payment data obj from db
+  Future<int> insertPayment(Map<String, dynamic> row) async {
+    final result = await _database!.insert(paymentTable, row);
+    return result;
+  }
+  //update payment data obj from db & save to db
+  Future<int> updatePayment(int bid, Map<String, dynamic> row) async {
+    final result = await _database!
+        .update(paymentTable, row, where: '$colbid = ?', whereArgs: [bid]);
+    return result;
+  }
+  //delete payment data obj from db
+  Future<int> deletePayment(int bid) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $paymentTable WHERE $colbid = $bid');
+    return result;
+  }
+
+  //DIRECTORY CRUD
+  //fetch all directory data
+  Future<List<DirectoryModel>> getAllDirectory() async {
+    final data = await _database!.query(directoryTable);
+    List<DirectoryModel> result = data.map((e) => DirectoryModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one directory data only by uid
+  Future<List<Map<String, dynamic>>> getDirectoryData(int did) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $directoryTable WHERE $coldid = $did');
+    return result;
+  }
+  //insert directory data obj from db
+  Future<int> insertDirectory(Map<String, dynamic> row) async {
+    final result = await _database!.insert(directoryTable, row);
+    return result;
+  }
+  //update directory data obj from db & save to db
+  Future<int> updateDirectory(int did, Map<String, dynamic> row) async {
+    final result = await _database!
+        .update(directoryTable, row, where: '$coldid = ?', whereArgs: [did]);
+    return result;
+  }
+  //delete directory data obj from db
+  Future<int> deleteDirectory(int did) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $directoryTable WHERE $coldid = $did');
+    return result;
+  }
+  
+  //APPOINTMENT CRUD
+  //fetch all appointment data
+  Future<List<AppointmentModel>> getAllAppointment() async {
+    final data = await _database!.query(userTable);
+    List<AppointmentModel> result = data.map((e) => AppointmentModel.fromJson(e)).toList();
+    return result;
+  }
+  //fetch one appointment data only by uid
+  Future<List<Map<String, dynamic>>> getAppointmentData(int aid) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $appointmentTable WHERE $colaid = $aid');
+    return result;
+  }
+  //insert appointment data obj from db
+  Future<int> insertAppointment(Map<String, dynamic> row) async {
+    final result = await _database!.insert(appointmentTable, row);
+    return result;
+  }
+  //update appointment data obj from db & save to db
+  Future<int> updateAppointment(int aid, Map<String, dynamic> row) async {
+    final result = await _database!
+        .update(appointmentTable, row, where: '$colaid = ?', whereArgs: [aid]);
+    return result;
+  }
+  //delete appointment data obj from db
+  Future<int> deleteAppointment(int aid) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $appointmentTable WHERE $colaid = $aid');
     return result;
   }
 }

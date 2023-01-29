@@ -38,30 +38,34 @@ class _DSTopBarState extends State<DSTopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      height: 80,
       color: Colors.blue[50],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //top bar
-          Image(
-            image: AssetImage('images/dialysis-staff-img.png'),
-            height: 100,
-            width: 100,
-            alignment: Alignment(-1.0, -1.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 10),
+            child: Image(
+              image: AssetImage('images/dialysis-staff-img.png'),
+              height: 100,
+              width: 100,
+              alignment: Alignment(-1.0, -1.0),
+            ),
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 35),
             child: Column(
               children: [
-                Text('Hello $currentUserName'),
+                Text('Hello $currentUserName',style: TextStyle(fontSize: 18),),
                 SizedBox(
                   height: 10,
                 ),
               ],
             ),
           ),
+          SizedBox(width: 90),
 
           //Logout
           IconButton(
