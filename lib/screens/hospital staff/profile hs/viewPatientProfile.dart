@@ -1,32 +1,20 @@
-// ignore_for_file: file_names, prefer_const_constructors, curly_braces_in_flow_control_structures, sort_child_properties_last
+// ignore_for_file: file_names, prefer_const_constructors, curly_braces_in_flow_control_structures, sort_child_properties_last, non_constant_identifier_names, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/patientProfile.dart';
+import 'package:mydialysis_app/model/userModel.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/patientProfileHS.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/secondpartHS.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/topBarHS.dart';
-import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 
-class HSviewPatientPage extends StatefulWidget {
-  const HSviewPatientPage({super.key});
+class HSviewPatientPage extends StatelessWidget {
+  UserModel? patient;
+  HSviewPatientPage(this.patient, {super.key});
 
-  @override
-  State<HSviewPatientPage> createState() => _HSviewPatientPageState();
-}
-
-class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data later
-
-  String? pName;
-  String? pNumber;
-  String? pEmail;
-  String? pDOB;
-  String? pAddress;
-
-  
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: SingleChildScrollView(
+      body: SafeArea(
+          child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
@@ -61,12 +49,35 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
+                            child: Text(
+                              '${patient!.uname}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Ic part
+                      Row(
+                        children: [
+                          Text(
+                            'IC No: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 80,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${patient!.uic}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -88,12 +99,10 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
+                            child: Text(
+                              '${patient!.uphoneNum}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            
                           ),
                         ],
                       ),
@@ -115,12 +124,10 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
+                            child: Text(
+                              '${patient!.uemail}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            
                           ),
                         ],
                       ),
@@ -142,12 +149,10 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
+                            child: Text(
+                              '${patient!.udob}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            
                           ),
                         ],
                       ),
@@ -169,23 +174,47 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
+                            child: Text(
+                              '${patient!.uaddress}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Phone number
+                      Row(
+                        children: [
+                          Text(
+                            'Given Code:    ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${patient!.ugivenCode}',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                      
 
                       SizedBox(
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 306),
+                        padding: EdgeInsets.only(right: 150, left: 150),
                         child: ElevatedButton(
-                            child: Text("Edit", style: TextStyle(fontSize: 13)),
+                            child: Text("Back", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -208,7 +237,8 @@ class _HSviewPatientPageState extends State<HSviewPatientPage> { //tukar data la
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: ((context) => HSPatientProfilePage())));
+                                      builder: ((context) =>
+                                          HSPatientProfilePage())));
                             }),
                       )
                     ],

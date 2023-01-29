@@ -1,22 +1,23 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, 
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/patientsDetails.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/viewPatientProfile.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/secondpartHS.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/topBarHS.dart';
+import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../db/databaseHelper.dart';
 import '../../../model/userModel.dart';
-import '../widget ds/secondpartDS.dart';
-import '../widget ds/topBarDS.dart';
 
-class PatientProfileDS extends StatefulWidget {
-  const PatientProfileDS({super.key});
+class HSPatientProfilePage extends StatefulWidget {
+  const HSPatientProfilePage({super.key});
 
   @override
-  State<PatientProfileDS> createState() => _PatientProfileDSState();
+  State<HSPatientProfilePage> createState() => _HSPatientProfilePageState();
 }
 
-class _PatientProfileDSState extends State<PatientProfileDS> {
+class _HSPatientProfilePageState extends State<HSPatientProfilePage> {
   DatabaseHelper? _databaseHelper;
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
@@ -64,9 +65,9 @@ class _PatientProfileDSState extends State<PatientProfileDS> {
         child: Column(
           children: [
             //1st part
-            DSTopBar(),
+            HSTopBar(),
             //2nd part
-            SecondPartDSPatient(),
+            SecondPartHSpatientprofile(),
             //3rd part
             Padding(
             padding: const EdgeInsets.all(10.0),
@@ -100,7 +101,7 @@ class _PatientProfileDSState extends State<PatientProfileDS> {
                     subtitle: Text('IC No: ${patient.uic}'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PastientDetails()));
+                          builder: (context) => HSviewPatientPage(patient)));
                     },
                   ),
                 );

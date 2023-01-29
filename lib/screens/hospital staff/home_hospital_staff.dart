@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/appointment_hs/appointmentPageHS.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/dc%20directory%20hs/directoryHS.dart';
-import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/patientProfile.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/patientProfileHS.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/topBarHS.dart';
 
 import '../patient/dc_directory/dc_directory.dart';
