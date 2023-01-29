@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/directory%20hs/directoryDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/payment%20ds/paymentDS.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/patientProfile.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/slot%20time%20ds/slotTimeDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/treatment%20record%20ds/treatmentRecordDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/topBarDS.dart';
@@ -41,7 +42,7 @@ class _DSHomePageState extends State<DSHomePage> {
                       onTap: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                              builder: (context) => DSTreatmentRecordPage()),
+                              builder: (context) => PatientProfileDS()),
                         );
                       },
                       child: Container(
@@ -65,7 +66,7 @@ class _DSHomePageState extends State<DSHomePage> {
                               height: 5,
                             ),
                             Text(
-                              'Treatment Record',
+                              'Patients',
                               textAlign: TextAlign.start,
                             ),
                           ],

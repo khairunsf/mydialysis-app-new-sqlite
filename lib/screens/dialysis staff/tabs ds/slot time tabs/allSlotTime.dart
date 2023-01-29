@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/model/slotModel.dart';
@@ -107,6 +109,7 @@ class _AllDSSlotTimeTabBarState extends State<AllDSSlotTimeTabBar> {
                   return Card(
                     margin: EdgeInsets.all(10),
                     child: ListTile(
+                      tileColor: Color.fromARGB(255, 229, 241, 250),
                       contentPadding: EdgeInsets.all(10),
                       title: Row(
                         children: [

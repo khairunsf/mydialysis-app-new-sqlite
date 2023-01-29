@@ -318,3 +318,49 @@ class SecondPartDSEditProfile extends StatelessWidget {
     );
   }
 }
+
+class SecondPartDSPatient extends StatelessWidget {
+  const SecondPartDSPatient({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 15.0),
+        child: Row(
+          children: [
+            Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                ),
+                iconSize: 12,
+                padding: EdgeInsets.symmetric(horizontal: 0.3),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DSBottomBarPage()),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              'Patient Profile',
+              style: TextStyle(fontSize: 25),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

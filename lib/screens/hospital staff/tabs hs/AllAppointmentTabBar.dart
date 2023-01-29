@@ -13,10 +13,10 @@ class AllAppTabBar extends StatefulWidget {
 class _AllAppTabBarState extends State<AllAppTabBar> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
             width: double.infinity,
             height: 200,
             decoration: BoxDecoration(
@@ -202,8 +202,8 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

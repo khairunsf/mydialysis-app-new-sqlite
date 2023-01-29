@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/patientsDetails.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/profileDS.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,14 +11,14 @@ import '../../../model/userModel.dart';
 import '../widget ds/secondpartDS.dart';
 import '../widget ds/topBarDS.dart';
 
-class SlotTimeList extends StatefulWidget {
-  const SlotTimeList({super.key});
+class PatientProfileDS extends StatefulWidget {
+  const PatientProfileDS({super.key});
 
   @override
-  State<SlotTimeList> createState() => _SlotTimeListState();
+  State<PatientProfileDS> createState() => _PatientProfileDSState();
 }
 
-class _SlotTimeListState extends State<SlotTimeList> {
+class _PatientProfileDSState extends State<PatientProfileDS> {
   DatabaseHelper? _databaseHelper;
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
@@ -67,7 +68,7 @@ class _SlotTimeListState extends State<SlotTimeList> {
             //1st part
             DSTopBar(),
             //2nd part
-            SecondPartDSSlotTime(),
+            SecondPartDSPatient(),
             //3rd part
             Padding(
             padding: const EdgeInsets.all(10.0),
@@ -101,7 +102,7 @@ class _SlotTimeListState extends State<SlotTimeList> {
                     subtitle: Text('IC No: ${patient.uic}'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DSProfilePage()));
+                          builder: (context) => PastientDetails()));
                     },
                   ),
                 );

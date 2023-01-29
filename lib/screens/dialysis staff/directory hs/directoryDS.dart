@@ -26,7 +26,7 @@ class _DSDirectoryPageState extends State<DSDirectoryPage> {
             //1st part
             DSTopBar(),
             //2nd part
-            SecondPartDSTreatmentRecord(),
+            SecondPartDSDirectory(),
             //3rd part + tab bar
             Container(
               width: 380,
