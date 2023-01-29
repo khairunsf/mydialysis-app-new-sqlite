@@ -13,6 +13,24 @@ class HSTopBar extends StatefulWidget {
 }
 
 class _HSTopBarState extends State<HSTopBar> {
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    getUserName();
+    super.initState();
+  }
+
+  String? currentUserName;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +53,7 @@ class _HSTopBarState extends State<HSTopBar> {
             padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text('Hello'),
+                Text('Hello $currentUserName'),
                 SizedBox(
                   height: 10,
                 ),
@@ -48,9 +66,9 @@ class _HSTopBarState extends State<HSTopBar> {
             icon: Icon(
               Icons.logout,
             ),
-            onPressed: () async{
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false);
+            onPressed: () async {
+              final sp = await prefs;
+              sp.setBool('isLoggedIn', false);
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: ((context) => MyApp())));
             },

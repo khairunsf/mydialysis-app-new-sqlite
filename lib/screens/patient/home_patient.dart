@@ -5,6 +5,7 @@ import 'package:mydialysis_app/db/databaseHelper.dart';
 import 'package:mydialysis_app/screens/patient/dc_directory/dc_directory.dart';
 import 'package:mydialysis_app/screens/patient/treatment%20record/treatment_record.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +16,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  
+  String? currentUserName;
 
   Future initDb() async {
     await _databaseHelper!.database;
@@ -26,6 +30,14 @@ class _HomePageState extends State<HomePage> {
     _databaseHelper = DatabaseHelper();
     initDb();
     super.initState();
+  }
+
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await prefs;
+
+    setState(() {
+      currentUserName = sp.getString("user_name");
+    });
   }
 
   @override

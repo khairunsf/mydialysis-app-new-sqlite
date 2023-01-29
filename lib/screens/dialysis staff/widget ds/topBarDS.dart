@@ -19,16 +19,20 @@ class _DSTopBarState extends State<DSTopBar> {
   DatabaseHelper? _databaseHelper;
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
-  Future initDb() async {
-    await _databaseHelper!.database;
-    setState(() {});
-  }
-
   @override
   void initState() {
     _databaseHelper = DatabaseHelper();
-    initDb();
+    getUserName();
     super.initState();
+  }
+
+  String? currentUserName;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+    });
   }
 
   @override
@@ -51,7 +55,7 @@ class _DSTopBarState extends State<DSTopBar> {
             padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text('Hello'),
+                Text('Hello $currentUserName'),
                 SizedBox(
                   height: 10,
                 ),
@@ -65,8 +69,8 @@ class _DSTopBarState extends State<DSTopBar> {
               Icons.logout,
             ),
             onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false);
+              final sp = await prefs;
+              sp.setBool('isLoggedIn', false);
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: ((context) => MyApp())));
             },

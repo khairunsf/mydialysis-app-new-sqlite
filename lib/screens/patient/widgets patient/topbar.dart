@@ -13,7 +13,24 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> {
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    getUserName();
+    super.initState();
+  }
+
+  String? currentUserName;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +53,7 @@ class _TopBarState extends State<TopBar> {
             padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text('Hello'),
+                Text('Hello $currentUserName'),
                 SizedBox(
                   height: 10,
                 ),
@@ -50,8 +67,8 @@ class _TopBarState extends State<TopBar> {
               Icons.logout,
             ),
             onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false);
+              final SharedPreferences sp = await prefs;
+              sp.setBool('isLoggedIn', false);
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: ((context) => MyApp())));
             },
