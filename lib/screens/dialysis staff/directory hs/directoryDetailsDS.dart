@@ -1,48 +1,12 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/screens/hospital%20staff/profile%20hs/hsEditProfile.dart';
-import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/secondpartHS.dart';
-import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/topBarHS.dart';
-import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/secondpartDS.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/topBarDS.dart';
 
-import '../../../db/databaseHelper.dart';
+import '../../../model/directoryModel.dart';
 
-class HSProfilePage extends StatefulWidget {
-  const HSProfilePage({super.key});
-
-  @override
-  State<HSProfilePage> createState() => _HSProfilePageState();
-}
-
-class _HSProfilePageState extends State<HSProfilePage> {
-  DatabaseHelper? _databaseHelper;
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-
-  @override
-  void initState() {
-    _databaseHelper = DatabaseHelper();
-    getUserName();
-    super.initState();
-  }
-
-  String? currentUserName, phoneNumber, email, dob, address;
-  late int uid;
-
-  Future<void> getUserName() async {
-    final SharedPreferences sp = await prefs;
-    setState(() {
-      currentUserName = sp.getString("user_name");
-      phoneNumber = sp.getString("phone_num");
-      email = sp.getString("email");
-      dob = sp.getString("user_dob");
-      address = sp.getString("user_address");
-      uid = sp.getInt("user_id")!;
-    });
-  }
-
-  
+class DirectoryDetailsDS extends StatelessWidget {
+  DirectoryModel? directory;
+  DirectoryDetailsDS(this.directory,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +16,8 @@ class _HSProfilePageState extends State<HSProfilePage> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            HSTopBar(),
-            SecondPartHSprofile(),
+            DSTopBar(),
+            SecondPartDSDirectory(),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -73,17 +37,45 @@ class _HSProfilePageState extends State<HSProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Name: ',
+                            'Center Name: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$currentUserName'),
+                            child: Text(
+                              '${directory!.dname}',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Ic part
+                      Row(
+                        children: [
+                          Text(
+                            'Address: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${directory!.daddress}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -95,7 +87,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Phone Number: ',
+                            'Contact Number: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
@@ -103,9 +95,12 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
+                            width: 220,
                             height: 35,
-                            child: Text('$phoneNumber'),
+                            child: Text(
+                              '${directory!.dcnumber}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -117,17 +112,20 @@ class _HSProfilePageState extends State<HSProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Email: ',
+                            'Open Time: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 82,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$email'),
+                            child: Text(
+                              '${directory!.dopenhr}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -139,17 +137,20 @@ class _HSProfilePageState extends State<HSProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Date of Birth: ',
+                            'Close Time: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 26,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$dob'),
+                            child: Text(
+                              '${directory!.dclosehr}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -161,17 +162,45 @@ class _HSProfilePageState extends State<HSProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Address: ',
+                            'Distance: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 61,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$address'),
+                            child: Text(
+                              '${directory!.dkm} KM away',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Phone number
+                      Row(
+                        children: [
+                          Text(
+                            'Rating:    ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${directory!.drating} Stars',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -180,9 +209,9 @@ class _HSProfilePageState extends State<HSProfilePage> {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 306),
+                        padding: EdgeInsets.only(right: 150, left: 150),
                         child: ElevatedButton(
-                            child: Text("Edit", style: TextStyle(fontSize: 13)),
+                            child: Text("Back", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -202,10 +231,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                                         side: BorderSide(
                                             color: Colors.green.shade700)))),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => HSEditProfilePage())));
+                              Navigator.pop(context);
                             }),
                       )
                     ],

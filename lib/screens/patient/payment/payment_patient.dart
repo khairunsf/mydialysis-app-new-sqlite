@@ -13,6 +13,24 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  Future saveChanges() async {
+    print('payment success');
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Payment Successfully'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => PaymentPage()),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +159,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              SizedBox(width: 110,),
+                              SizedBox(
+                                width: 110,
+                              ),
                               Text(
                                 ' RM200 ',
                                 style: TextStyle(
@@ -167,7 +187,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              SizedBox(width: 150,),
+                              SizedBox(
+                                width: 150,
+                              ),
                               Text(
                                 ' Rm15 ',
                                 style: TextStyle(
@@ -193,7 +215,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              SizedBox(width: 200,),
+                              SizedBox(
+                                width: 200,
+                              ),
                               Text(
                                 ' RM215 ',
                                 style: TextStyle(
@@ -221,8 +245,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                         foregroundColor:
                                             MaterialStateProperty.all<Color>(
                                                 Colors.white),
-                                        padding:
-                                            MaterialStateProperty.all<EdgeInsets>(
+                                        padding: MaterialStateProperty.all<
+                                            EdgeInsets>(
                                           EdgeInsets.symmetric(
                                               horizontal: 18, vertical: 12),
                                         ),
@@ -235,9 +259,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                                 side: BorderSide(
-                                                    color:
-                                                        Colors.green.shade700)))),
-                                    onPressed: () => null),
+                                                    color: Colors.green.shade700)))),
+                                    onPressed: saveChanges),
                               )
                             ],
                           ),

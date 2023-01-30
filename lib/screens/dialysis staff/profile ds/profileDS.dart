@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/editProfileDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/secondpartDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/topBarDS.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../db/databaseHelper.dart';
 
 class DSProfilePage extends StatefulWidget {
   const DSProfilePage({super.key});
@@ -13,7 +16,30 @@ class DSProfilePage extends StatefulWidget {
 }
 
 class _DSProfilePageState extends State<DSProfilePage> {
-  
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    getUserName();
+    super.initState();
+  }
+
+  String? currentUserName, phoneNumber, email, dob, address;
+  late int uid;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+      phoneNumber = sp.getString("phone_num");
+      email = sp.getString("email");
+      dob = sp.getString("user_dob");
+      address = sp.getString("user_address");
+      uid = sp.getInt("user_id")!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,143 +66,118 @@ class _DSProfilePageState extends State<DSProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 20,
-                        ),
-                        //Name part
-                        Row(
-                          children: [
-                            Text(
-                              'Name: ',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 80,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[50],
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        height: 20,
+                      ),
+                      //Name part
+                      Row(
+                        children: [
+                          Text(
+                            'Name: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 80,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text('$currentUserName'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                        //Phone number
-                        Row(
-                          children: [
-                            Text(
-                              'Phone Number: ',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[50],
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                      //Phone number
+                      Row(
+                        children: [
+                          Text(
+                            'Phone Number: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text('$phoneNumber'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                        //email
-                        Row(
-                          children: [
-                            Text(
-                              'Email: ',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 82,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[50],
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                      //email
+                      Row(
+                        children: [
+                          Text(
+                            'Email: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 82,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text('$email'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                        //dob
-                        Row(
-                          children: [
-                            Text(
-                              'Date of Birth: ',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 26,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[50],
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                      //dob
+                      Row(
+                        children: [
+                          Text(
+                            'Date of Birth: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 26,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text('$dob'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                        //address
-                        Row(
-                          children: [
-                            Text(
-                              'Address: ',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 61,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[50],
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              
-                              ),
-                          ],
-                        ),
+                      //address
+                      Row(
+                        children: [
+                          Text(
+                            'Address: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 61,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text('$address'),
+                          ),
+                        ],
+                      ),
 
-                        SizedBox(
-                          height: 30,
-                        ),
+                      SizedBox(
+                        height: 30,
+                      ),
                         Container(
                           padding: EdgeInsets.only(left: 306),
                           child: ElevatedButton(

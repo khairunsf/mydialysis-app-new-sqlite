@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../db/databaseHelper.dart';
+import '../../../../model/treatmentModel.dart';
 import '../../treatment record ds/detailsTR.dart';
 
 class AllDSTreatmentRecordTabBar extends StatefulWidget {
@@ -13,126 +16,100 @@ class AllDSTreatmentRecordTabBar extends StatefulWidget {
 
 class _AllDSTreatmentRecordTabBarState
     extends State<AllDSTreatmentRecordTabBar> {
+DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  var allTreatment = [];
+  var items = [];
+  TextEditingController _search = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper!.getTreatment().then((data) {
+      setState(() {
+        allTreatment = data;
+        items = allTreatment;
+      });
+    });
+  }
+
+  void filterSearch(String query) async {
+    var pSearchList = allTreatment;
+    if (query.isNotEmpty) {
+      var pListdata = [];
+      pSearchList.forEach((items) {
+        var treatment = TreatmentModel.fromJson(items);
+        if (treatment.pname!.toLowerCase().contains(query.toLowerCase())) {
+          pListdata.add(items);
+        }
+      });
+      setState(() {
+        items = [];
+        items.addAll(pListdata);
+      });
+    } else {
+      setState(() {
+        items = [];
+        items = allTreatment;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
+    return Scaffold(
+      body: SafeArea(
+          child: Column(
         children: [
-          //3rd part
-          Container(
-            padding: EdgeInsets.only(top: 15),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 245, 249, 254),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              onChanged: ((value) {
+                setState(() {
+                  filterSearch(value);
+                });
+              }),
+              controller: _search,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                labelText: 'Search',
+                isDense: true, // Added this
+                contentPadding: EdgeInsets.all(8),
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
             ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 30,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, i) {
+                TreatmentModel tr = TreatmentModel.fromJson(items[i]);
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text('${tr.pname} Record'),
+                    subtitle: Row(
+                      children: [
+                        Text('${tr.trdate}'),
+                        SizedBox(height: 10),
+                        Text('${tr.trtime}'),
+                      ],
                     ),
-                    Icon(
-                      Icons.folder_open_outlined,
-                      size: 25,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Patient Name',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                    ),
-                    Icon(
-                      Icons.calendar_today_rounded,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Saturday, 30 April',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                    ),
-                    Icon(
-                      Icons.access_time_filled_outlined,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '02:00 PM - 06:00 PM',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.only(left: 200),
-                  child: ElevatedButton(
-                    child: Text("See Details", style: TextStyle(fontSize: 13)),
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.green.shade700),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(
-                                        color: Colors.green.shade700)))),
-                    onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const DSTreatmentRecordDetails())),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DSTreatmentRecordDetails(tr)));
+                    },
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 10,
-                  decoration: BoxDecoration(color: Colors.white),
-                ),
-              ],
+                );
+              },
             ),
           )
         ],
-      ),
+      )),
     );
   }
 }

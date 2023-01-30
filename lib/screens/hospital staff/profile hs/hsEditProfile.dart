@@ -28,8 +28,6 @@ class _HSEditProfilePageState extends State<HSEditProfilePage> {
   void initState() {
     super.initState();
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +215,8 @@ class _HSEditProfilePageState extends State<HSEditProfilePage> {
                             lastDate: DateTime(2101));
                         if (pickeddate != null) {
                           setState(() {
-                            hsDOBController.text = dateFormat.format(pickeddate);
+                            hsDOBController.text =
+                                dateFormat.format(pickeddate);
                           });
                         }
                       }),
@@ -297,8 +296,7 @@ class _HSEditProfilePageState extends State<HSEditProfilePage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
-                        onPressed: () {
-                        }),
+                        onPressed: () {}),
                   ),
                 ],
               ),

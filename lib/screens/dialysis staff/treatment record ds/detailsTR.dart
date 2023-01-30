@@ -1,15 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/model/treatmentModel.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/secondpartDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/topBarDS.dart';
 
-class DSTreatmentRecordDetails extends StatefulWidget {
-  const DSTreatmentRecordDetails({super.key});
-
-  @override
-  State<DSTreatmentRecordDetails> createState() => _DSTreatmentRecordDetailsState();
-}
-
-class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
+class DSTreatmentRecordDetails extends StatelessWidget {
+  TreatmentModel? tr;
+  DSTreatmentRecordDetails(this.tr,{super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +43,7 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           width: 5,
                         ),
                         Text(
-                          'Patient Name',
+                          '${tr!.trdate}',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -56,7 +55,7 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                     Padding(
                       padding: const EdgeInsets.only(right: 140),
                       child: Text(
-                        '[Saturday, 30 April]',
+                        '${tr!.trtime}',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -88,7 +87,7 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           Padding(
                             padding: const EdgeInsets.only(left: 40),
                             child: Text(
-                              'Body Weight : ',
+                              'Body Weight : ${tr!.bbweight} Kg',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -101,7 +100,32 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           Padding(
                             padding: const EdgeInsets.only(left: 40),
                             child: Text(
-                              'Blood Pressure : ',
+                              'Blood Pressure : ${tr!.bbpreasure} mmHg',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              'Heart Rate : ${tr!.bhrate} bpm',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              'Body Temperature : ${tr!.btemp} celsius',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -150,17 +174,108 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           Padding(
                             padding: const EdgeInsets.only(left: 40),
                             child: Text(
-                              '1  :  ',
+                              '1  :  ${tr!.dbpreasure1}',
                               style: TextStyle(color: Colors.white,
                               fontSize: 12,),
                             ),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '2  :  ${tr!.dbpreasure2}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '3  :  ${tr!.dbpreasure3}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '4  :  ${tr!.dbpreasure4}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              'Heart Rate per hour',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '1  :  ${tr!.dhrate1}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '2  : ${tr!.dhrate2}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '3  :  ${tr!.dhrate3}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              '4  :  ${tr!.dhrate4}',
+                              style: TextStyle(color: Colors.white,
+                              fontSize: 12,),
+                            ),
+                          ),
+
                         ],
                       ),
                     ),
                     SizedBox(
                       height: 15,
                     ),
+
+
                     //3rd box (After dialysis)
                     Container(
                       padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
@@ -173,7 +288,8 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Before Dialysis',
+                            'After Dialysis',
+                            // ignore: prefer_const_constructors
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -185,7 +301,7 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           Padding(
                             padding: const EdgeInsets.only(left: 40),
                             child: Text(
-                              'Body Weight : ',
+                              'Body Weight : ${tr!.abweight} Kg',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -198,7 +314,33 @@ class _DSTreatmentRecordDetailsState extends State<DSTreatmentRecordDetails> {
                           Padding(
                             padding: const EdgeInsets.only(left: 40),
                             child: Text(
-                              'Blood Pressure : ',
+                              'Blood Pressure : ${tr!.abpreasure} mmHg',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              'Heart Rate : ${tr!.ahrate} bpm',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40),
+                            child: Text(
+                              'Body Temperature : ${tr!.atemp} celsius',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,

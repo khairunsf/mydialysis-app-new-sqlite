@@ -5,6 +5,9 @@ import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/profileDS.d
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/secondpartDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/widget%20ds/topBarDS.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../db/databaseHelper.dart';
 
 class DSEditProfilePage extends StatefulWidget {
   const DSEditProfilePage({super.key});
@@ -14,6 +17,36 @@ class DSEditProfilePage extends StatefulWidget {
 }
 
 class _DSEditProfilePageState extends State<DSEditProfilePage> {
+  final _formKey = new GlobalKey<FormState>();
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  Future initDb() async {
+    await _databaseHelper!.database;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    initDb();
+    super.initState();
+  }
+
+  String? currentUserName, phoneNumber, email, dob, address;
+  late int uid;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+      phoneNumber = sp.getString("phone_num");
+      email = sp.getString("email");
+      dob = sp.getString("user_dob");
+      address = sp.getString("user_address");
+      uid = sp.getInt("user_id")!;
+    });
+  }
   TextEditingController hsNameController = TextEditingController();
   TextEditingController hsPhoneNumberController = TextEditingController();
   TextEditingController hsEmailController = TextEditingController();
@@ -23,9 +56,28 @@ class _DSEditProfilePageState extends State<DSEditProfilePage> {
   String? hospStaff;
   DateFormat dateFormat = DateFormat("dd-MM-yyyy");
 
-  @override
-  void initState() {
-    super.initState();
+  Future saveChanges(int uid) async {
+    await _databaseHelper!.updateUser(uid, {
+      'uname': hsNameController.text.trim(),
+      'uemail': hsEmailController.text.trim(),
+      'uphoneNum': hsPhoneNumberController.text.trim(),
+      'udob': hsDOBController.text.trim(),
+      'uaddress': hsAddressController.text.trim(),
+    });
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Profile Successfully Updated'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => DSProfilePage()),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
   }
 
 
