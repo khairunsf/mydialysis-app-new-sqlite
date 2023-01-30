@@ -2,7 +2,8 @@ import 'dart:core';
 
 class DirectoryModel {
   int? did;
-  String? dname, daddress, dcnumber, dlogo, dkm, dopenhr, dclosehr, drating;
+  String? dname, daddress, dcnumber, dlogo, dopenhr, dclosehr, drating;
+  double? dkm;
 
   DirectoryModel(
       {this.did,

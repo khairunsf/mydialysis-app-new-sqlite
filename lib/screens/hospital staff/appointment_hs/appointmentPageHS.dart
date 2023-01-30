@@ -22,64 +22,64 @@ class _HSAppointmentPageState extends State<HSAppointmentPage> {
       child: Scaffold(
         body: SafeArea(
             child: Column(
-              children: [
-                //1st part
-                HSTopBar(),
-                //2nd part
-                SecondPartHSappointment(),
-                //3rd part + tab bar
-                Container(
-                  width: 380,
-                  padding: EdgeInsets.only(
-                    top: 10,
-                    bottom: 10,
+          children: [
+            //1st part
+            HSTopBar(),
+            //2nd part
+            SecondPartHSappointmentDetails(),
+            //3rd part + tab bar
+            Container(
+              width: 380,
+              padding: EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(
+                  7,
+                ),
+              ),
+              child: Center(
+                child: TabBar(
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.grey.shade400,
+                  isScrollable: true,
+                  labelPadding: EdgeInsets.only(
+                      left: 30, right: 30, bottom: 0.2, top: 0.2),
+                  indicator: BoxDecoration(
+                    border: Border.all(color: Colors.green.shade700),
+                    borderRadius: BorderRadius.circular(7),
+                    color: Colors.green.shade700,
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(
-                      7,
+                  tabs: [
+                    Tab(
+                      text: '    All    ',
                     ),
-                  ),
-                  child: Center(
-                    child: TabBar(
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.grey.shade400,
-                      isScrollable: true,
-                      labelPadding: EdgeInsets.only(
-                          left: 30, right: 30, bottom: 0.2, top: 0.2),
-                      indicator: BoxDecoration(
-                        border: Border.all(color: Colors.green.shade700),
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.green.shade700,
-                      ),
-                      tabs: [
-                        Tab(
-                          text: '    All    ',
-                        ),
-                        Tab(
-                          text: 'Set Appointment',
-                        ),
-                        Tab(
-                          text: 'Request',
-                        ),
-                      ],
+                    Tab(
+                      text: 'Set Appointment',
                     ),
-                  ),
+                    Tab(
+                      text: 'Request',
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      AllAppTabBar(),
-                      SetAppTabBar(),
-                      RequestAppTabBar(),
-                    ],
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  AllAppTabBar(),
+                  SetAppTabBar(),
+                  RequestAppTabBar(),
+                ],
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }

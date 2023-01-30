@@ -249,6 +249,12 @@ class DatabaseHelper {
         .rawQuery('SELECT * FROM $slotTable WHERE $colsid = $sid');
     return result;
   }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getUserSlot(String? pname) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $slotTable WHERE $colspname = $pname');
+    return result;
+  }
   //insert slot data obj from db
   Future<int> insertSlot(Map<String, dynamic> row) async {
     final result = await _database!.insert(slotTable, row);
@@ -281,6 +287,18 @@ class DatabaseHelper {
         .rawQuery('SELECT * FROM $treatmentTable WHERE $coltrid = $trid');
     return result;
   }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getTreatment() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $treatmentTable');
+    return result;
+  }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getUserTreatment(String pname) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $treatmentTable WHERE $coltrpname = $pname');
+    return result;
+  }
   //insert treatment data obj from db
   Future<int> insertData(Map<String, dynamic> row) async {
     final result = await _database!.insert(treatmentTable, row);
@@ -308,9 +326,21 @@ class DatabaseHelper {
     return result;
   }
   //fetch one payment data only by bid
-  Future<List<Map<String, dynamic>>> getPayment(int bid) async {
+  Future<List<Map<String, dynamic>>> getPaymentData(int bid) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $paymentTable WHERE $colbid = $bid');
+    return result;
+  }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getPayment() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $paymentTable');
+    return result;
+  }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getUserPayment(String pname) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $paymentTable WHERE $colppname = $pname');
     return result;
   }
   //insert payment data obj from db
@@ -345,6 +375,12 @@ class DatabaseHelper {
         .rawQuery('SELECT * FROM $directoryTable WHERE $coldid = $did');
     return result;
   }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getDirectory() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $directoryTable');
+    return result;
+  }
   //insert directory data obj from db
   Future<int> insertDirectory(Map<String, dynamic> row) async {
     final result = await _database!.insert(directoryTable, row);
@@ -377,6 +413,18 @@ class DatabaseHelper {
         .rawQuery('SELECT * FROM $appointmentTable WHERE $colaid = $aid');
     return result;
   }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getAppointment() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $appointmentTable');
+    return result;
+  }
+  //fetch data only
+  Future<List<Map<String, dynamic>>> getUserAppointment(String pname) async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $appointmentTable WHERE $colapname = $pname');
+    return result;
+  }
   //insert appointment data obj from db
   Future<int> insertAppointment(Map<String, dynamic> row) async {
     final result = await _database!.insert(appointmentTable, row);
@@ -389,7 +437,7 @@ class DatabaseHelper {
     return result;
   }
   //delete appointment data obj from db
-  Future<int> deleteAppointment(int aid) async {
+  Future<int> deleteAppointment(int? aid) async {
     var db = await this.database;
     int result =
         await db.rawDelete('DELETE FROM $appointmentTable WHERE $colaid = $aid');

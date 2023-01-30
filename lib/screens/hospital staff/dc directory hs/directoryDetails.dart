@@ -1,56 +1,25 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/db/databaseHelper.dart';
-import 'package:mydialysis_app/screens/patient/profile/edit_profile.dart';
-import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets patient/topbar.dart';
+import 'package:mydialysis_app/model/directoryModel.dart';
+import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/secondpartHS.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+import '../widgets hs/topBarHS.dart';
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  DatabaseHelper? _databaseHelper;
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-
-  @override
-  void initState() {
-    _databaseHelper = DatabaseHelper();
-    getUserName();
-    super.initState();
-  }
-
-  String? currentUserName, phoneNumber, email, dob, address;
-  late int uid;
-
-  Future<void> getUserName() async {
-    final SharedPreferences sp = await prefs;
-    setState(() {
-      currentUserName = sp.getString("user_name");
-      phoneNumber = sp.getString("phone_num");
-      email = sp.getString("email");
-      dob = sp.getString("user_dob");
-      address = sp.getString("user_address");
-      uid = sp.getInt("user_id")!;
-    });
-  }
+class HSDirectoryDetails extends StatelessWidget {
+  DirectoryModel? directory;
+  HSDirectoryDetails(this.directory, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+          child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
           children: [
-            //1st part
-            TopBar(),
-            //2nd part
-            SecondPartProfile(),
-            //3rd part
+            HSTopBar(),
+            SecondPartHSViewDirectory(),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -70,17 +39,45 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Name: ',
+                            'Center Name: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$currentUserName'),
+                            child: Text(
+                              '${directory!.dname}',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Ic part
+                      Row(
+                        children: [
+                          Text(
+                            'Address: ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${directory!.daddress}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -92,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Phone Number: ',
+                            'Contact Number: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
@@ -100,9 +97,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
+                            width: 220,
                             height: 35,
-                            child: Text('$phoneNumber'),
+                            child: Text(
+                              '${directory!.dcnumber}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -114,17 +114,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Email: ',
+                            'Open Time: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 82,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$email'),
+                            child: Text(
+                              '${directory!.dopenhr}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -136,17 +139,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Date of Birth: ',
+                            'Close Time: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 26,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$dob'),
+                            child: Text(
+                              '${directory!.dclosehr}',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -158,17 +164,45 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         children: [
                           Text(
-                            'Address: ',
+                            'Distance: ',
                             style: TextStyle(fontSize: 18),
                           ),
                           SizedBox(
-                            width: 61,
+                            width: 8,
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             width: 245,
                             height: 35,
-                            child: Text('$address'),
+                            child: Text(
+                              '${directory!.dkm} KM away',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //Phone number
+                      Row(
+                        children: [
+                          Text(
+                            'Rating:    ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            width: 245,
+                            height: 35,
+                            child: Text(
+                              '${directory!.drating} Stars',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -177,9 +211,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 306),
+                        padding: EdgeInsets.only(right: 150, left: 150),
                         child: ElevatedButton(
-                            child: Text("Edit", style: TextStyle(fontSize: 13)),
+                            child: Text("Back", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -199,11 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         side: BorderSide(
                                             color: Colors.green.shade700)))),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) =>
-                                          EditProfilePatient())));
+                              Navigator.pop(context);
                             }),
                       )
                     ],
@@ -213,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }

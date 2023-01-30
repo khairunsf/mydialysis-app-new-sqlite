@@ -34,7 +34,6 @@ class _TopBarState extends State<TopBar> {
 
   @override
   Widget build(BuildContext context) {
-    String? uemail;
     return Container(
       height: 80,
       color: Colors.blue[50],

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/hospital%20staff/widgets%20hs/bottomBarHS.dart';
@@ -272,6 +272,48 @@ class SecondPartHSappointment extends StatelessWidget {
     );
   }
 }
+class SecondPartHSappointmentDetails extends StatelessWidget {
+  const SecondPartHSappointmentDetails({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 15.0),
+        child: Row(
+          children: [
+            Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                ),
+                iconSize: 12,
+                padding: EdgeInsets.symmetric(horizontal: 0.3),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              'Patient Appointment Details',
+              style: TextStyle(fontSize: 25),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class SecondPartHSeditAppointment extends StatelessWidget {
   const SecondPartHSeditAppointment({super.key});
@@ -307,6 +349,49 @@ class SecondPartHSeditAppointment extends StatelessWidget {
             ),
             Text(
               'Patient Appointment',
+              style: TextStyle(fontSize: 25),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SecondPartHSViewDirectory extends StatelessWidget {
+  const SecondPartHSViewDirectory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 15.0),
+        child: Row(
+          children: [
+            Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                ),
+                iconSize: 12,
+                padding: EdgeInsets.symmetric(horizontal: 0.3),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              'Directory',
               style: TextStyle(fontSize: 25),
             ),
           ],

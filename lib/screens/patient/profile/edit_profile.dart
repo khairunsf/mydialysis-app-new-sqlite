@@ -6,6 +6,9 @@ import 'package:mydialysis_app/screens/patient/profile/profile_patient.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../db/databaseHelper.dart';
 
 class EditProfilePatient extends StatefulWidget {
   const EditProfilePatient({super.key});
@@ -15,6 +18,36 @@ class EditProfilePatient extends StatefulWidget {
 }
 
 class _EditProfilePatientState extends State<EditProfilePatient> {
+  final _formKey = new GlobalKey<FormState>();
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  Future initDb() async {
+    await _databaseHelper!.database;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _databaseHelper = DatabaseHelper();
+    initDb();
+    super.initState();
+  }
+
+  String? currentUserName, phoneNumber, email, dob, address;
+  late int uid;
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await prefs;
+    setState(() {
+      currentUserName = sp.getString("user_name");
+      phoneNumber = sp.getString("phone_num");
+      email = sp.getString("email");
+      dob = sp.getString("user_dob");
+      address = sp.getString("user_address");
+      uid = sp.getInt("user_id")!;
+    });
+  }
 
   TextEditingController pNameController = TextEditingController();
   TextEditingController pPhoneNumberController = TextEditingController();
@@ -25,12 +58,30 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
   String? patient;
   DateFormat dateFormat = DateFormat("dd-MM-yyyy");
 
-  @override
-  void initState() {
-    super.initState();
+  Future saveChanges(int uid) async {
+    await _databaseHelper!.updateUser(uid, {
+      'uname': pNameController.text.trim(),
+      'uemail': pEmailController.text.trim(),
+      'uphoneNum': pPhoneNumberController.text.trim(),
+      'udob': pDOBController.text.trim(),
+      'uaddress': pAddressController.text.trim(),
+    });
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Sign Up Successfully'),
+          content: const Text('Welcome To myDialysis! Login now'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -298,8 +349,9 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
-                        onPressed: () {
-                        }),
+                        onPressed: (() {
+                          
+                        })),
                   ),
                 ],
               ),
