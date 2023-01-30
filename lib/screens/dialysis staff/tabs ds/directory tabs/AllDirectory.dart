@@ -90,12 +90,12 @@ class _AllDirectoryTabBarState extends State<AllDirectoryTabBar> {
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
-                    title: Text('This Week Slot Time'),
+                    title: Text('${directory.dname}'),
                     subtitle: Row(
                       children: [
-                        Text('${directory.dname}'),
-                        SizedBox(height: 10),
                         Text('${directory.daddress}'),
+                        SizedBox(height: 10),
+                        Text('${directory.dcnumber}'),
                       ],
                     ),
                     onTap: () {
