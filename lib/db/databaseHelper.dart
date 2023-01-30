@@ -130,7 +130,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + '/myDialysis-app.db'; //db name
+    String path = directory.path + '/myDialysis_App.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -148,7 +148,7 @@ class DatabaseHelper {
         'CREATE TABLE $slotTable($colsid INTEGER PRIMARY KEY AUTOINCREMENT, $colsdate DATE NULL, $colstime TIME NULL, $colsstatus TEXT NULL, $colsrdate DATE NULL, $colsrtime TIME NULL, $colsrStatus TEXT NULL, $colsrReason TEXT NULL, $colspname TEXT NULL)';
     //treatment table
     String table3 =
-        'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw INTEGER NULL, $colbbp TEXT NULL, $colbhr INTEGER NULL, $colbtemp INTEGER NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 INTEGER NULL, $coldhr2 INTEGER NULL, $coldhr3 INTEGER NULL, $coldhr4 INTEGER NULL, $coldhr5 INTEGER NULL, $colabw INTEGER NULL, $colabp TEXT NULL, $colahr INTEGER NULL, $colatemp INTEGER NULL, $coltrpname TEXT NULL, $coltrdate DATE NULL, $coltrtime TIME NULL)';
+        'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw TEXT NULL, $colbbp TEXT NULL, $colbhr TEXT NULL, $colbtemp TEXT NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 TEXT NULL, $coldhr2 TEXT NULL, $coldhr3 TEXT NULL, $coldhr4 TEXT NULL, $coldhr5 TEXT NULL, $colabw TEXT NULL, $colabp TEXT NULL, $colahr TEXT NULL, $colatemp TEXT NULL, $coltrpname TEXT NULL, $coltrdate DATE NULL, $coltrtime TIME NULL)';
     //payment table
     String table4 =
         'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colppname TEXT NULL)';
@@ -253,6 +253,18 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getUserSlot(String? pname) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $slotTable WHERE $colspname = $pname');
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getCompleteSlot() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $slotTable WHERE $colsstatus = "Completed"');
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getUpcomingSlot() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $slotTable WHERE $colsstatus = "Pending"');
     return result;
   }
   //insert slot data obj from db
@@ -423,6 +435,18 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getUserAppointment(String pname) async {
     final result = await _database!
         .rawQuery('SELECT * FROM $appointmentTable WHERE $colapname = $pname');
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getCompleteApp() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $appointmentTable $colastatus = "Completed"');
+    return result;
+  }
+  //fetch one patient only
+  Future<List<Map<String, dynamic>>> getUpcomingApp() async {
+    final result = await _database!
+        .rawQuery('SELECT * FROM $appointmentTable WHERE $colastatus = "Pending"');
     return result;
   }
   //insert appointment data obj from db

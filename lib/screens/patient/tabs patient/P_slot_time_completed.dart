@@ -1,118 +1,111 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PatientSTTabBarCompleted extends StatelessWidget {
+import '../../../db/databaseHelper.dart';
+import '../../../model/slotModel.dart';
+
+class PatientSTTabBarCompleted extends StatefulWidget {
   const PatientSTTabBarCompleted({super.key});
 
   @override
+  State<PatientSTTabBarCompleted> createState() => _PatientSTTabBarCompletedState();
+}
+
+class _PatientSTTabBarCompletedState extends State<PatientSTTabBarCompleted> {
+  DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  var completedSlot = [];
+  var items = [];
+  TextEditingController _search = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper!.getCompleteSlot().then((data) {
+      setState(() {
+        completedSlot = data;
+        items = completedSlot;
+      });
+    });
+  }
+
+  void filterSearch(String query) async {
+    var pSearchList = completedSlot;
+    if (query.isNotEmpty) {
+      var pListdata = [];
+      pSearchList.forEach((items) {
+        var doneSlot = SlotModel.fromJson(items);
+        if (doneSlot.sdate!.toLowerCase().contains(query.toLowerCase())) {
+          pListdata.add(items);
+        }
+      });
+      setState(() {
+        items = [];
+        items.addAll(pListdata);
+      });
+    } else {
+      setState(() {
+        items = [];
+        items = completedSlot;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 200,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 235, 243, 249),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Icon(
-                        Icons.hourglass_empty_rounded,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'April, Week 2',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 75,
-                      ),
-                      Icon(
-                        Icons.calendar_today_rounded,
-                        size: 15,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Thursday, April 22',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 75,
-                      ),
-                      Icon(
-                        Icons.access_time_filled_rounded,
-                        size: 15,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '03:00PM 07:00PM',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Icon(
-                        Icons.done,
-                        size: 20,
-                        color: Colors.green.shade600,
-                      ),
-                      Text(
-                        '  Completed',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.green.shade600),
-                      ),
-                    ],
-                  ),
-                ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              onChanged: ((value) {
+                setState(() {
+                  filterSearch(value);
+                });
+              }),
+              controller: _search,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                labelText: 'Search',
+                isDense: true, // Added this
+                contentPadding: EdgeInsets.all(8),
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
               ),
             ),
           ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, i) {
+                SlotModel comingSlot = SlotModel.fromJson(items[i]);
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text('Completed Slot Treatment'),
+                    subtitle: Row(
+                      children: [
+                        Text('${comingSlot.sdate}'),
+                        SizedBox(height: 10),
+                        Text('${comingSlot.stime}'),
+                      ],
+                    ),
+                    onTap: () {
+                    },
+                  ),
+                );
+              },
+            ),
+          )
         ],
-      ),
+        )),
     );
   }
 }

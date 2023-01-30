@@ -2,203 +2,111 @@
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/patient/appointment/reschedule_appointment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PatientAppTabBarUpcoming extends StatelessWidget {
+import '../../../db/databaseHelper.dart';
+import '../../../model/appointmentModel.dart';
+
+class PatientAppTabBarUpcoming extends StatefulWidget {
   const PatientAppTabBarUpcoming({super.key});
 
   @override
+  State<PatientAppTabBarUpcoming> createState() => _PatientAppTabBarUpcomingState();
+}
+
+class _PatientAppTabBarUpcomingState extends State<PatientAppTabBarUpcoming> {
+ DatabaseHelper? _databaseHelper;
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  var upcomingApp = [];
+  var items = [];
+  TextEditingController _search = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper!.getUpcomingApp().then((data) {
+      setState(() {
+        upcomingApp = data;
+        items = upcomingApp;
+      });
+    });
+  }
+
+  void filterSearch(String query) async {
+    var pSearchList = upcomingApp;
+    if (query.isNotEmpty) {
+      var pListdata = [];
+      pSearchList.forEach((items) {
+        var nextApp = AppointmentModel.fromJson(items);
+        if (nextApp.adate!.toLowerCase().contains(query.toLowerCase())) {
+          pListdata.add(items);
+        }
+      });
+      setState(() {
+        items = [];
+        items.addAll(pListdata);
+      });
+    } else {
+      setState(() {
+        items = [];
+        items = upcomingApp;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 200,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 235, 243, 249),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      //first line
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Icon(
-                        Icons.badge_outlined,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Dr. Mritha Shanmuganathan',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  //second line
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Icon(
-                        Icons.local_hospital_outlined,
-                        size: 15,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Dialysis Specialist - Queen Hospital',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  //third line
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Icon(
-                        Icons.access_time_filled_rounded,
-                        size: 15,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '10:00 AM',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Icon(
-                        Icons.calendar_month_outlined,
-                        size: 15,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Friday, 15 July',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Icon(
-                        Icons.done,
-                        size: 15,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Confirmed',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 63.0),
-                    child: Row(
-                      children: [
-                        TextButton(
-                            child: Text("Approved",
-                                style: TextStyle(fontSize: 13)),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 35, vertical: 12),
-                                ),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.green),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side:
-                                            BorderSide(color: Colors.green)))),
-                            onPressed: () => null),
-                        SizedBox(width: 20),
-                        ElevatedButton(
-                            child: Text("Reschedule",
-                                style: TextStyle(fontSize: 13)),
-                            style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 25, vertical: 12),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.green.shade700),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side: BorderSide(
-                                            color: Colors.green.shade700)))),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) =>
-                                          AppointmentReschedule())));
-                            })
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              onChanged: ((value) {
+                setState(() {
+                  filterSearch(value);
+                });
+              }),
+              controller: _search,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                labelText: 'Search',
+                isDense: true, // Added this
+                contentPadding: EdgeInsets.all(8),
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
               ),
             ),
           ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, i) {
+                AppointmentModel comingApp = AppointmentModel.fromJson(items[i]);
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text('Appointment Time'),
+                    subtitle: Row(
+                      children: [
+                        Text('${comingApp.adate}'),
+                        SizedBox(height: 10),
+                        Text('${comingApp.atime}'),
+                      ],
+                    ),
+                    onTap: () {
+                    },
+                  ),
+                );
+              },
+            ),
+          )
         ],
-      ),
+        )),
     );
   }
 }
