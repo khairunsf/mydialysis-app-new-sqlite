@@ -22,7 +22,7 @@ class _AddDSSlotTimeTabBarState extends State<AddDSSlotTimeTabBar> {
 
   DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   TextEditingController stDateController = TextEditingController();
-  TextEditingController stTimeController = TextEditingController();
+  TextEditingController stTimeCon = TextEditingController();
   TextEditingController stPnameController = TextEditingController();
 
   Future initDb() async {
@@ -42,7 +42,7 @@ class _AddDSSlotTimeTabBarState extends State<AddDSSlotTimeTabBar> {
     print('success');
     await _databaseHelper!.insertSlot({
       'sdate': stDateController.text.trim(),
-      'stime': stTimeController.text.trim(),
+      'stime': stTimeCon.text.trim(),
       'pname': stPnameController.text.trim(),
     });
     showDialog<String>(
@@ -208,7 +208,7 @@ class _AddDSSlotTimeTabBarState extends State<AddDSSlotTimeTabBar> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextFormField(
-                    controller: stDateController,
+                    controller: stTimeCon,
                     validator: (value) {
                       if (value == "") {
                         return "Time is required";
@@ -232,7 +232,7 @@ class _AddDSSlotTimeTabBarState extends State<AddDSSlotTimeTabBar> {
                           );
                           if (pickedtime != null) {
                             setState(() {
-                              stTimeController.text =
+                              stTimeCon.text =
                                   pickedtime.format(context).toString();
                             });
                           }

@@ -65,7 +65,7 @@ class _DSTopBarState extends State<DSTopBar> {
               ],
             ),
           ),
-          SizedBox(width: 90),
+          SizedBox(width: 20),
 
           //Logout
           IconButton(

@@ -130,7 +130,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     //get directory path
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + '/myDialysis_App.db'; //db name
+    String path = directory.path + '/myDialysis.db'; //db name
     print(path);
 
     //open/create db at given path
@@ -151,10 +151,10 @@ class DatabaseHelper {
         'CREATE TABLE $treatmentTable($coltrid INTEGER PRIMARY KEY AUTOINCREMENT, $colbbw TEXT NULL, $colbbp TEXT NULL, $colbhr TEXT NULL, $colbtemp TEXT NULL, $coldbp1 TEXT NULL, $coldbp2 TEXT NULL, $coldbp3 TEXT NULL, $coldbp4 TEXT NULL, $coldbp5 TEXT NULL, $coldhr1 TEXT NULL, $coldhr2 TEXT NULL, $coldhr3 TEXT NULL, $coldhr4 TEXT NULL, $coldhr5 TEXT NULL, $colabw TEXT NULL, $colabp TEXT NULL, $colahr TEXT NULL, $colatemp TEXT NULL, $coltrpname TEXT NULL, $coltrdate DATE NULL, $coltrtime TIME NULL)';
     //payment table
     String table4 =
-        'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice FLOAT NULL, $colmealprice FLOAT NULL, $coltotalprice FLOAT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colppname TEXT NULL)';
+        'CREATE TABLE $paymentTable($colbid INTEGER PRIMARY KEY AUTOINCREMENT, $colbdate DATE NULL, $colbtime TIME NULL, $coldtprice TEXT NULL, $colmealprice TEXT NULL, $coltotalprice TEXT NULL, $colbstatus TEXT NULL, $colpdate DATE NULL, $colptime TIME NULL, $colpamount FLOAT NULL, $colppname TEXT NULL)';
     //directory table
     String table5 =
-        'CREATE TABLE $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm FLOAT NULL, $coldopenhr FLOAT NULL, $coldclosehr FLOAT NULL, $coldrating TEXT NULL)';
+        'CREATE TABLE $directoryTable($coldid INTEGER PRIMARY KEY AUTOINCREMENT, $coldname TEXT NULL, $coldaddress TEXT NULL, $coldcnumber TEXT NULL, $coldlogo VARCHAR(50) NULL, $coldkm TEXT NULL, $coldopenhr TEXT NULL, $coldclosehr TEXT NULL, $coldrating TEXT NULL)';
     //appointment table
     String table6 =
         'CREATE TABLE $appointmentTable($colaid INTEGER PRIMARY KEY AUTOINCREMENT, $coladate DATE NULL, $colatime TIME NULL, $colaplace TEXT NULL, $coldrname TEXT NULL, $coldrdetail TEXT NULL, $coldrroom TEXT NULL, $colastatus TEXT NULL, $colardate DATE NULL, $colartime TIME NULL, $colarstatus TEXT NULL, $colarreason TEXT NULL, $colareview TEXT NULL, $colapname)';

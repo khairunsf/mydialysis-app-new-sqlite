@@ -917,7 +917,7 @@ class _AddDSTreatmentRecordTabBarState
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
-                      controller: _abwCon,
+                      controller: _abpCon,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter Blood Pressure',

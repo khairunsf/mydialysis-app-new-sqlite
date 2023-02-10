@@ -93,10 +93,10 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
                     subtitle: Row(
                       children: [
                         Text('${_payment.bdate}'),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10, width: 10,),
                         Text('${_payment.btime}'),
-                        SizedBox(height: 10),
-                        Text('Total= ${_payment.totalprice}'),
+                        SizedBox(height: 10, width: 10,),
+                        Text('Total: RM${_payment.totalprice}'),
                       ],
                     ),
                     onTap: () {
