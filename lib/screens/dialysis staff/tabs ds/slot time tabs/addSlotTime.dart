@@ -260,7 +260,13 @@ class _AddDSSlotTimeTabBarState extends State<AddDSSlotTimeTabBar> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
-                    onPressed: addSlotTime),
+                    onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          addSlotTime();
+                        } else {
+                          print("Valid Failed");
+                        }
+                      }),
                 SizedBox(
                   height: 10,
                 ),

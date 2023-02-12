@@ -70,6 +70,7 @@ class _AllDSSlotTimeTabBarState extends State<AllDSSlotTimeTabBar> {
     await _databaseHelper!.deleteSlot(sid);
     setState(() {});
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +169,16 @@ class _AllDSSlotTimeTabBarState extends State<AllDSSlotTimeTabBar> {
                         children: [
                           Expanded(
                             child: IconButton(
+                              onPressed: (() {}),
+                              icon: Icon(
+                                Icons.edit,
+                                color: Colors.blue[400],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Expanded(
+                            child: IconButton(
                               onPressed: () {
                                   deleteSlot(slot.sid!).then((value) {
                                     setState(() {});
@@ -177,16 +188,6 @@ class _AllDSSlotTimeTabBarState extends State<AllDSSlotTimeTabBar> {
                                 Icons.delete,
                                 size: 25,
                                 color: Colors.red[400],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Expanded(
-                            child: IconButton(
-                              onPressed: (() {}),
-                              icon: Icon(
-                                Icons.edit,
-                                color: Colors.blue[400],
                               ),
                             ),
                           ),

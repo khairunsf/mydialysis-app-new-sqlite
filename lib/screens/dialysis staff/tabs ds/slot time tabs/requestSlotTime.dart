@@ -211,7 +211,7 @@ class _RequestDSSLotTimeTabBarState extends State<RequestDSSLotTimeTabBar> {
     
                   //button
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -232,7 +232,7 @@ class _RequestDSSLotTimeTabBarState extends State<RequestDSSLotTimeTabBar> {
                                         borderRadius: BorderRadius.circular(10.0),
                                         side: BorderSide(color: Colors.green)))),
                             onPressed: () => null),
-                        SizedBox(width: 25),
+                        SizedBox(width: 10),
                         //button 2
                         ElevatedButton(
                             child: Text("Reject", style: TextStyle(fontSize: 13)),

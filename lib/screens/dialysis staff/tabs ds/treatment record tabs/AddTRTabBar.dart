@@ -101,937 +101,963 @@ class _AddDSTreatmentRecordTabBarState
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          //content
-          Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Treatment Data Form',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-
-              //Name textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Patient Name',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            //content
+            Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _pnameCon,
-                  validator: (value) {
-                    if (value == "") {
-                      return "Patient name is required";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Patient Name',
+                Text(
+                  'Treatment Data Form',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+
+                //Name textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Patient Name',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-
-              //date textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _trdateCon,
-                  validator: (value) {
-                    if (value == "") {
-                      return "Date is required";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_month_outlined),
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Select Date',
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _pnameCon,
+                    validator: (value) {
+                      if (value == "") {
+                        return "Patient name is required";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Patient Name',
+                    ),
                   ),
-                  onTap: (() async {
-                    DateTime? pickeddate = await showDatePicker(
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
+                //date textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Date',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _trdateCon,
+                    validator: (value) {
+                      if (value == "") {
+                        return "Date is required";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_month_outlined),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Select Date',
+                    ),
+                    onTap: (() async {
+                      DateTime? pickeddate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1700),
+                          lastDate: DateTime(2101));
+                      if (pickeddate != null) {
+                        setState(() {
+                          _trdateCon.text = dateFormat.format(pickeddate);
+                        });
+                      }
+                    }),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+
+                //Time textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Time',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _trtimeCon,
+                    validator: (value) {
+                      if (value == "") {
+                        return "Time is required";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.access_time),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Select Time',
+                    ),
+                    onTap: (() async {
+                      TimeOfDay? pickedtime = await showTimePicker(
                         context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1700),
-                        lastDate: DateTime(2101));
-                    if (pickeddate != null) {
-                      setState(() {
-                        _trdateCon.text = dateFormat.format(pickeddate);
-                      });
-                    }
-                  }),
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (pickedtime != null) {
+                        setState(() {
+                          _trtimeCon.text =
+                              pickedtime.format(context).toString();
+                        });
+                      }
+                    }),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
+                SizedBox(
+                  height: 15,
+                ),
 
-              //Time textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Time',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Before Dialysis',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _trtimeCon,
-                  validator: (value) {
-                    if (value == "") {
-                      return "Time is required";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.access_time),
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Select Time',
-                  ),
-                  onTap: (() async {
-                    TimeOfDay? pickedtime = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (pickedtime != null) {
-                      setState(() {
-                        _trtimeCon.text = pickedtime.format(context).toString();
-                      });
-                    }
-                  }),
-                ),
-              ),
-              SizedBox(height: 15,),
 
-              Text(
-                'Before Dialysis',
-                style: TextStyle(fontSize: 16),
-              ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Body weight textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Body Weight',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _bbwCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Body Weight',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              SizedBox(
-                height: 10,
-              ),
-              //Body weight textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Body Weight',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _bbwCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Body Weight',
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _bbpCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
+                //Heart rate textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _bbpCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _bhrCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Body Temp textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Body Temperature',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _btempCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Body Temperature',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              //Heart rate textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'During Dialysis',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _bhrCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
-                  ),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Body Temp textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Body Temperature',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Blood Pressure: ',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _btempCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Body Temperature',
-                  ),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
 
-              Text(
-                'During Dialysis',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Blood Pressure: ',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Dbp textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure 1st Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dbp1Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure 2nd Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dbp2Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure 3rd Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dbp3Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure 4th Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dbp4Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure 5th Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dbp5Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Blood Pressure',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              SizedBox(
-                height: 10,
-              ),
-              //Dbp textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure 1st Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dbp1Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
-                  ),
+                Text(
+                  'Heart Rate:',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure 2nd Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dbp2Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure 3rd Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dbp3Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure 4th Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dbp4Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure 5th Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dbp5Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Blood Pressure',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
 
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Heart Rate:',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                //HR1 textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate 1st Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dhr1Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate 2nd Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dhr2Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //hr textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate 3rd Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dhr3Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Hr textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate 4th Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dhr4Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //Blood pressure textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate 5th Hour',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _dhr5Con,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //AFTER
+                SizedBox(
+                  height: 10,
+                ),
 
-              //HR1 textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate 1st Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'After Dialysis',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dhr1Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate 2nd Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dhr2Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //hr textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate 3rd Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dhr3Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart rate',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Hr textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate 4th Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dhr4Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //Blood pressure textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate 5th Hour',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _dhr5Con,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-//AFTER
-              SizedBox(
-                height: 10,
-              ),
 
-              Text(
-                'After Dialysis',
-                style: TextStyle(fontSize: 16),
-              ),
-
-              SizedBox(
-                height: 10,
-              ),
-              //BW textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Body Weight',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey[50],
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
+                //BW textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Body Weight',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      controller: _abwCon,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Enter Body Weight',
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[50],
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextField(
+                        controller: _abwCon,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter Body Weight',
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              //BP textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Blood Pressure',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey[50],
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      controller: _abpCon,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Enter Blood Pressure',
+
+                //BP textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Blood Pressure',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              //Heart rate textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Heart Rate',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[50],
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextField(
+                        controller: _abpCon,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter Blood Pressure',
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _ahrCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Heart Rate',
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              //Body Temp textfield
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Body Temperature',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 18,
+                //Heart rate textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Heart Rate',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _ahrCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Heart Rate',
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFormField(
-                  controller: _atempCon,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 20),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Enter Body Temperature',
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+                SizedBox(
+                  height: 10,
+                ),
 
-              SizedBox(
-                height: 15,
-              ),
-
-              //button
-              ElevatedButton(
-                  child: Text("Submit", style: TextStyle(fontSize: 16)),
-                  style: ButtonStyle(
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                //Body Temp textfield
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Body Temperature',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 18,
+                        ),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.green.shade700),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Colors.green.shade700)))),
-                  onPressed: addTreatmeant),
-              SizedBox(
-                height: 15,
-              ),
-            ],
-          )
-        ],
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextFormField(
+                    controller: _atempCon,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      hintText: 'Enter Body Temperature',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                SizedBox(
+                  height: 15,
+                ),
+
+                //button
+                ElevatedButton(
+                    child: Text("Submit", style: TextStyle(fontSize: 16)),
+                    style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.green.shade700),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(
+                                        color: Colors.green.shade700)))),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        addTreatmeant();
+                      } else {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Patient Name, Slot Date and Slot Time are required!'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                        print("Valid Failed");
+                      }
+                    }),
+                SizedBox(
+                  height: 15,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

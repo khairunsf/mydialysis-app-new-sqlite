@@ -441,7 +441,14 @@ class _AddDirectoryTabBarState extends State<AddDirectoryTabBar> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 side: BorderSide(color: Colors.green.shade700)))),
-                    onPressed: saveDirectory),
+                    onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          saveDirectory();
+                        } else {
+                          print("Valid Failed");
+                        }
+                      }
+                    ),
                     SizedBox(height: 10,),
               ],
             )

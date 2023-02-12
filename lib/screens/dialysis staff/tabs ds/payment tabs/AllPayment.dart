@@ -55,6 +55,11 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
     }
   }
 
+  Future deleteData(int bid) async {
+    await _databaseHelper!.deletePayment(bid);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,18 +94,91 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
-                    title: Text('${_payment.pname} Record'),
-                    subtitle: Row(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding: EdgeInsets.all(20),
+                    title: Text('${_payment.pname}'),
+                    subtitle: Column(
                       children: [
-                        Text('${_payment.bdate}'),
-                        SizedBox(height: 10, width: 10,),
-                        Text('${_payment.btime}'),
-                        SizedBox(height: 10, width: 10,),
-                        Text('Total: RM${_payment.totalprice}'),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month_outlined,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${_payment.bdate}'),
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_filled_outlined,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${_payment.btime}'),
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.paid_outlined,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('Total: RM${_payment.totalprice}'),
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        Row(
+                          children: [
+                            
+                            Text('Status: ${_payment.bstatus}'),
+                          ],
+                        ),
                       ],
                     ),
                     onTap: () {
                     },
+                    trailing: Column(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blue[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: (() {
+                              deleteData(_payment.bid!).then((value) {
+                                setState(() {});
+                              });
+                            }),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                      ],
+                    ),
                   ),
                 );
               },

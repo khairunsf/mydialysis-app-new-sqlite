@@ -383,7 +383,13 @@ class _AddBillTabBarState extends State<AddBillTabBar> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 side: BorderSide(color: Colors.green.shade700)))),
-                    onPressed: saveBill),
+                    onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          saveBill();
+                        } else {
+                          print("Valid Failed");
+                        }
+                      }),
                     SizedBox(height: 10,),
               ],
             )

@@ -54,7 +54,7 @@ class TreatmentModel {
         trid: json['trid'],
         pname: json['pname'],
         trdate: json['trdate'],
-        trtime: json['trttime'],
+        trtime: json['trtime'],
         bbweight: json['bbweight'],
         bbpreasure: json['bbpreasure'],
         bhrate: json['bhrate'],

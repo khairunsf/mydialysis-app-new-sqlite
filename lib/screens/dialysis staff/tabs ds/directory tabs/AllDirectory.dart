@@ -56,6 +56,11 @@ class _AllDirectoryTabBarState extends State<AllDirectoryTabBar> {
     }
   }
 
+  Future deleteData(int did) async {
+    await _databaseHelper!.deleteDirectory(did);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,20 +93,80 @@ class _AllDirectoryTabBarState extends State<AllDirectoryTabBar> {
               itemBuilder: (context, i) {
                 DirectoryModel directory = DirectoryModel.fromJson(items[i]);
                 return Card(
-                  margin: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(10),
                   child: ListTile(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding: EdgeInsets.all(20),
                     title: Text('${directory.dname}'),
-                    subtitle: Row(
+                    subtitle: Column(
                       children: [
-                        Text('${directory.daddress}'),
-                        SizedBox(height: 10),
-                        Text('${directory.dcnumber}'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.home,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${directory.daddress}'),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.call,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${directory.dcnumber}'),
+                          ],
+                        )
                       ],
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DirectoryDetailsDS(directory)));
+                          builder: (context) =>
+                              DirectoryDetailsDS(directory)));
                     },
+                    trailing: Column(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blue[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: (() {
+                              deleteData(directory.did!).then((value) {
+                                setState(() {});
+                              });
+                            }),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                      ],
+                    ),
                   ),
                 );
               },

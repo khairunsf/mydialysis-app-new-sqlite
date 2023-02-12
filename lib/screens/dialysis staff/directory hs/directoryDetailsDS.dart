@@ -45,8 +45,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.dname}',
                               style: TextStyle(fontSize: 18),
@@ -70,8 +68,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.daddress}',
                               style: TextStyle(fontSize: 18),
@@ -95,8 +91,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 220,
-                            height: 35,
                             child: Text(
                               '${directory!.dcnumber}',
                               style: TextStyle(fontSize: 18),
@@ -120,8 +114,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.dopenhr}',
                               style: TextStyle(fontSize: 18),
@@ -145,8 +137,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.dclosehr}',
                               style: TextStyle(fontSize: 18),
@@ -170,8 +160,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.dkm} KM away',
                               style: TextStyle(fontSize: 18),
@@ -195,8 +183,6 @@ class DirectoryDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${directory!.drating} Stars',
                               style: TextStyle(fontSize: 18),
@@ -209,7 +195,7 @@ class DirectoryDetailsDS extends StatelessWidget {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 150, left: 150),
+                        padding: EdgeInsets.only(left: 130),
                         child: ElevatedButton(
                             child: Text("Back", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(
@@ -233,7 +219,8 @@ class DirectoryDetailsDS extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             }),
-                      )
+                      ),
+                      SizedBox(height: 20,)
                     ],
                   ),
                 ),
