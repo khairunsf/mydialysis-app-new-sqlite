@@ -256,15 +256,11 @@ class DatabaseHelper {
     return result;
   }
   //fetch one patient only
-  Future<List<Map<String, dynamic>>> getCompleteSlot() async {
-    final result = await _database!
-        .rawQuery('SELECT * FROM $slotTable WHERE $colsstatus = "Completed"');
-    return result;
-  }
+  
   //fetch one patient only
   Future<List<Map<String, dynamic>>> getUpcomingSlot() async {
     final result = await _database!
-        .rawQuery('SELECT * FROM $slotTable WHERE $colsstatus = "Pending"');
+        .rawQuery('SELECT * FROM $slotTable WHERE $colsstatus = "null"');
     return result;
   }
   //insert slot data obj from db
@@ -438,15 +434,11 @@ class DatabaseHelper {
     return result;
   }
   //fetch one patient only
-  Future<List<Map<String, dynamic>>> getCompleteApp() async {
-    final result = await _database!
-        .rawQuery('SELECT * FROM $appointmentTable $colastatus = "Completed"');
-    return result;
-  }
+  
   //fetch one patient only
   Future<List<Map<String, dynamic>>> getUpcomingApp() async {
     final result = await _database!
-        .rawQuery('SELECT * FROM $appointmentTable WHERE $colastatus = "Pending"');
+        .rawQuery('SELECT * FROM $appointmentTable WHERE $colastatus = "null"');
     return result;
   }
   //insert appointment data obj from db

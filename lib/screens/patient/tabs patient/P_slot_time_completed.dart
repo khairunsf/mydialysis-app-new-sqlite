@@ -25,7 +25,7 @@ class _PatientSTTabBarCompletedState extends State<PatientSTTabBarCompleted> {
   void initState() {
     super.initState();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper!.getCompleteSlot().then((data) {
+    _databaseHelper!.getSlot().then((data) {
       setState(() {
         completedSlot = data;
         items = completedSlot;
@@ -93,7 +93,7 @@ class _PatientSTTabBarCompletedState extends State<PatientSTTabBarCompleted> {
                     subtitle: Row(
                       children: [
                         Text('${comingSlot.sdate}'),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10, width: 10,),
                         Text('${comingSlot.stime}'),
                       ],
                     ),

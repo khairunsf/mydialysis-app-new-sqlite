@@ -26,7 +26,7 @@ class _PatientAppTabBarUpcomingState extends State<PatientAppTabBarUpcoming> {
   void initState() {
     super.initState();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper!.getUpcomingApp().then((data) {
+    _databaseHelper!.getAppointment().then((data) {
       setState(() {
         upcomingApp = data;
         items = upcomingApp;
@@ -94,7 +94,7 @@ class _PatientAppTabBarUpcomingState extends State<PatientAppTabBarUpcoming> {
                     subtitle: Row(
                       children: [
                         Text('${comingApp.adate}'),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10, width: 10,),
                         Text('${comingApp.atime}'),
                       ],
                     ),

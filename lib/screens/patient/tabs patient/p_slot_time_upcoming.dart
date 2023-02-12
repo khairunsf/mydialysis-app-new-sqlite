@@ -25,7 +25,7 @@ class _PatientSTTabBarUpcomingState extends State<PatientSTTabBarUpcoming> {
   void initState() {
     super.initState();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper!.getUpcomingSlot().then((data) {
+    _databaseHelper!.getSlot().then((data) {
       setState(() {
         upcomingSlot = data;
         items = upcomingSlot;
@@ -93,7 +93,7 @@ class _PatientSTTabBarUpcomingState extends State<PatientSTTabBarUpcoming> {
                     subtitle: Row(
                       children: [
                         Text('${comingSlot.sdate}'),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10, width: 10,),
                         Text('${comingSlot.stime}'),
                       ],
                     ),

@@ -25,7 +25,7 @@ class _PatientAppTabBarCompletedState extends State<PatientAppTabBarCompleted> {
   void initState() {
     super.initState();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper!.getCompleteApp().then((data) {
+    _databaseHelper!.getAppointment().then((data) {
       setState(() {
         completedApp = data;
         items = completedApp;
@@ -93,7 +93,7 @@ class _PatientAppTabBarCompletedState extends State<PatientAppTabBarCompleted> {
                     subtitle: Row(
                       children: [
                         Text('${completeApp.adate}'),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10,width: 10,),
                         Text('${completeApp.atime}'),
                       ],
                     ),

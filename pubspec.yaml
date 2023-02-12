@@ -22,6 +22,13 @@ dependencies:
   shared_preferences: ^2.0.17
   wc_form_validators: ^1.0.0
   toast: ^0.3.0
+  flutter_launcher_icons: ^0.11.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/mydialysis-logo.png"
+  min_sdk_android: 21 
 
 dev_dependencies:
   flutter_test:

@@ -94,9 +94,9 @@ DatabaseHelper? _databaseHelper;
                     title: Text('${tr.pname} Record'),
                     subtitle: Row(
                       children: [
-                        Text('${tr.trdate}'),
-                        SizedBox(height: 10),
-                        Text('${tr.trtime}'),
+                        Text('Date: ${tr.trdate}'),
+                        SizedBox(height: 10, width: 10,),
+                        Text('Time: ${tr.trtime}'),
                       ],
                     ),
                     onTap: () {
