@@ -158,7 +158,7 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                                 Icons.maps_home_work_outlined,
                                 size: 15,
                               ),
-                              Text('   ${appointment.atime}'),
+                              Text('   ${appointment.aplace}'),
                             ],
                           ),
                           SizedBox(
@@ -174,15 +174,19 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                                 size: 15,
                               ),
                               Text('   ${appointment.atime}'),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
                               SizedBox(
                                 width: 40,
                               ),
                               Icon(Icons.calendar_month_outlined, size: 15),
                               Text('   ${appointment.adate} '),
                             ],
-                          ),
-                          SizedBox(
-                            height: 10,
                           ),
                         ],
                       ),

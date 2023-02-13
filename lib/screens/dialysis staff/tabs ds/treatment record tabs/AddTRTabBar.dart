@@ -1039,7 +1039,8 @@ class _AddDSTreatmentRecordTabBarState
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Patient Name, Slot Date and Slot Time are required!'),
+                            title: const Text('ALERT!'),
+                            content: Text('Patient Name, Slot Date and Slot Time are required!'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () => Navigator.pop(context),

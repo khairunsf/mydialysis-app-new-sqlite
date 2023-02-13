@@ -81,9 +81,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
-                            child: Text('$currentUserName'),
+                            child: Text('$currentUserName', style: TextStyle(fontSize: 18)),
                           ),
                         ],
                       ),
@@ -103,9 +101,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
-                            child: Text('$phoneNumber'),
+                            child: Text('$phoneNumber', style: TextStyle(fontSize: 18)),
                           ),
                         ],
                       ),
@@ -125,9 +121,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
-                            child: Text('$email'),
+                            child: Text('$email', style: TextStyle(fontSize: 18)),
                           ),
                         ],
                       ),
@@ -147,9 +141,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
-                            child: Text('$dob'),
+                            child: Text('$dob', style: TextStyle(fontSize: 18)),
                           ),
                         ],
                       ),
@@ -169,9 +161,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
-                            child: Text('$address'),
+                            child: Text('$address', style: TextStyle(fontSize: 18)),
                           ),
                         ],
                       ),
@@ -180,7 +170,7 @@ class _HSProfilePageState extends State<HSProfilePage> {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 306),
+                        padding: EdgeInsets.only(left: 130),
                         child: ElevatedButton(
                             child: Text("Edit", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(

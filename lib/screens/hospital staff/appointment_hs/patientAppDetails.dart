@@ -51,8 +51,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.pname}',
                                 style: TextStyle(fontSize: 18),
@@ -78,8 +76,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.adate}',
                                 style: TextStyle(fontSize: 18),
@@ -105,8 +101,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.atime}',
                                 style: TextStyle(fontSize: 18),
@@ -131,8 +125,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.drname}',
                                 style: TextStyle(fontSize: 18),
@@ -158,8 +150,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.drdetail}',
                                 style: TextStyle(fontSize: 18),
@@ -185,8 +175,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.drroom}',
                                 style: TextStyle(fontSize: 18),
@@ -212,8 +200,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.aplace}',
                                 style: TextStyle(fontSize: 18),
@@ -239,8 +225,6 @@ class AppDetails extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              width: 245,
-                              height: 35,
                               child: Text(
                                 '${appointment!.astatus}',
                                 style: TextStyle(fontSize: 18),
@@ -255,7 +239,7 @@ class AppDetails extends StatelessWidget {
                           height: 30,
                         ),
                         Container(
-                          padding: EdgeInsets.only(right: 150, left: 150),
+                          padding: EdgeInsets.only(left: 10),
                           child: ElevatedButton(
                               child:
                                   Text("Back", style: TextStyle(fontSize: 13)),

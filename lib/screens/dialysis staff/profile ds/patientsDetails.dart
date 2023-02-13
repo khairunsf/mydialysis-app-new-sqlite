@@ -50,8 +50,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.uname}',
                               style: TextStyle(fontSize: 18),
@@ -75,8 +73,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.uic}',
                               style: TextStyle(fontSize: 18),
@@ -100,8 +96,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.uphoneNum}',
                               style: TextStyle(fontSize: 18),
@@ -125,8 +119,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.uemail}',
                               style: TextStyle(fontSize: 18),
@@ -150,8 +142,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.udob}',
                               style: TextStyle(fontSize: 18),
@@ -175,8 +165,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.uaddress}',
                               style: TextStyle(fontSize: 18),
@@ -200,8 +188,6 @@ class PatientDetailsDS extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
-                            width: 245,
-                            height: 35,
                             child: Text(
                               '${patient!.ugivenCode}',
                               style: TextStyle(fontSize: 18),
@@ -215,7 +201,7 @@ class PatientDetailsDS extends StatelessWidget {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 150, left: 150),
+                        padding: EdgeInsets.only(left: 130),
                         child: ElevatedButton(
                             child: Text("Back", style: TextStyle(fontSize: 13)),
                             style: ButtonStyle(

@@ -306,7 +306,7 @@ class SecondPartHSappointmentDetails extends StatelessWidget {
             ),
             Text(
               'Patient Appointment Details',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
             ),
           ],
         ),

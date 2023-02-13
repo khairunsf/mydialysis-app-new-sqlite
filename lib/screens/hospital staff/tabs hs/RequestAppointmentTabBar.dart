@@ -210,7 +210,7 @@ class _RequestAppTabBarState extends State<RequestAppTabBar> {
     
                   //button
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
