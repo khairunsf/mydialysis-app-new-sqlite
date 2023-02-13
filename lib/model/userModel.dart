@@ -40,7 +40,7 @@ class UserModel {
         uemail: json['uemail'],
         udob: json['udob'],
         uaddress: json['uaddress'],
-        ugivenCode: json['ugivencode'],
+        ugivenCode: json['ugivenCode'],
         urole: json['urole']);
   }
 }

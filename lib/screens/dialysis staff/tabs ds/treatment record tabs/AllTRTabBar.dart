@@ -56,6 +56,10 @@ DatabaseHelper? _databaseHelper;
       });
     }
   }
+  Future deleteData(int trid) async {
+    await _databaseHelper!.deleteData(trid);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +95,117 @@ DatabaseHelper? _databaseHelper;
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
-                    title: Text('${tr.pname} Record'),
-                    subtitle: Row(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding:
+                        EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
+                    title: Row(
                       children: [
-                        Text('Date: ${tr.trdate}'),
-                        SizedBox(height: 10, width: 10,),
-                        Text('Time: ${tr.trtime}'),
+                        SizedBox(
+                            width: 20,
+                            height: 10,
+                          ),
+                          Icon(
+                            color: Colors.black,
+                            Icons.folder_open_rounded,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        Text('${tr.pname} Record'),
                       ],
                     ),
+                    subtitle: 
+                    Column(
+                        children: [
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Icon(Icons.calendar_month_outlined, size: 15),
+                              Text('   ${tr.trdate} '),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Icon(
+                                Icons.access_time_filled_outlined,
+                                size: 15,
+                                color: Colors.grey,
+                              ),
+                              Text('   ${tr.trtime}'),
+                            ],
+                          ),
+                          Padding(
+                          padding: const EdgeInsets.only(left: 160),
+                          child: ElevatedButton(
+                              child: Text("View Details",
+                                  style: TextStyle(fontSize: 13)),
+                              style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                  padding:
+                                      MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.symmetric(
+                                        horizontal: 18, vertical: 12),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.green.shade700),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          side: BorderSide(
+                                              color: Colors.green.shade700)))),
+                              onPressed: (() {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => DSTreatmentRecordDetails(tr),
+                                  ),
+                                );
+                              }),),),
+                        ],
+                      ),
+                      trailing: Column(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blue[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: (() {
+                              deleteData(tr.trid!).then((value) {
+                                setState(() {});
+                              });
+                            }),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red[400],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                      ]),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DSTreatmentRecordDetails(tr)));

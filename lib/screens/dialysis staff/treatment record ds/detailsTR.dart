@@ -20,7 +20,7 @@ class DSTreatmentRecordDetails extends StatelessWidget {
               //1st part
               DSTopBar(),
               //2nd part
-              SecondPartDSTreatmentRecord(),
+              SecondPartDSTreatmentRecordDetails(),
               //3rd part
               Container(
                 padding: EdgeInsets.only(top: 15, bottom: 20),

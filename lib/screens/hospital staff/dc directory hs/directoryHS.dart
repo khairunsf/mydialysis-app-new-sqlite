@@ -97,8 +97,43 @@ class _HSDirectoryPageState extends State<HSDirectoryPage> {
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding: EdgeInsets.all(20),
                     title: Text('${directory.dname}'),
-                    subtitle: Text('${directory.daddress}'),
+                    subtitle: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.home,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${directory.daddress}'),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.call,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('${directory.dcnumber}'),
+                          ],
+                        )
+                      ],
+                    ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HSDirectoryDetails(directory)));

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, camel_case_types, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/screens/patient/time%20slot/time_slot_patient.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 import 'package:intl/intl.dart';
@@ -33,8 +34,10 @@ class _SlotTimeRequestState extends State<SlotTimeRequest> {
             //3rd part
             Column(
               children: [
-                SizedBox(height: 10,),
-                
+                SizedBox(
+                  height: 10,
+                ),
+
                 Text(
                   'Request Slot Time Form',
                   style: TextStyle(fontSize: 18),
@@ -211,8 +214,7 @@ class _SlotTimeRequestState extends State<SlotTimeRequest> {
 
                 //button
                 ElevatedButton(
-                    child: Text("Submit",
-                        style: TextStyle(fontSize: 16)),
+                    child: Text("Submit", style: TextStyle(fontSize: 16)),
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
@@ -228,7 +230,21 @@ class _SlotTimeRequestState extends State<SlotTimeRequest> {
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
                     onPressed: () {
-                      
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Request Sent Successfully'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => TimeSlotPage()),
+                              ),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
                     })
               ],
             )

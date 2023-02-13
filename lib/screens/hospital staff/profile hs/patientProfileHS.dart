@@ -95,8 +95,10 @@ class _HSPatientProfilePageState extends State<HSPatientProfilePage> {
               itemBuilder: (context, i) {
                 UserModel patient = UserModel.fromJson(items[i]);
                 return Card(
-                  margin: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(10),
                   child: ListTile(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     title: Text('${patient.uname}'),
                     subtitle: Text('IC No: ${patient.uic}'),
                     onTap: () {

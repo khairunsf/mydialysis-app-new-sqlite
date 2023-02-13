@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/screens/dialysis%20staff/directory%20hs/directoryDS.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/directory%20ds/directoryDS.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../db/databaseHelper.dart';

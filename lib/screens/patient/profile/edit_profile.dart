@@ -67,20 +67,20 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
       'uaddress': pAddressController.text.trim(),
     });
     showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Sign Up Successfully'),
-          content: const Text('Welcome To myDialysis! Login now'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              ),
-              child: const Text('OK'),
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Sign Up Successfully'),
+        content: const Text('Welcome To myDialysis! Login now'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ProfilePage()),
             ),
-          ],
-        ),
-      );
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -350,7 +350,6 @@ class _EditProfilePatientState extends State<EditProfilePatient> {
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
                         onPressed: (() {
-                          
                         })),
                   ),
                 ],

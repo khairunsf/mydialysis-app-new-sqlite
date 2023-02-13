@@ -2,10 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../db/databaseHelper.dart';
 import '../../../../model/directoryModel.dart';
-import '../../directory hs/directoryDetailsDS.dart';
+import '../../directory ds/directoryDetailsDS.dart';
 
 class AllDirectoryTabBar extends StatefulWidget {
   const AllDirectoryTabBar({super.key});

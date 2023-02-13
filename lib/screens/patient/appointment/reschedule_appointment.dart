@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:mydialysis_app/screens/patient/appointment/appointment_patient.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/2ndpart.dart';
 import 'package:mydialysis_app/screens/patient/widgets%20patient/topbar.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +34,6 @@ class _AppointmentRescheduleState extends State<AppointmentReschedule> {
             //3rd part
             Column(
               children: [
-
                 SizedBox(
                   height: 15,
                 ),
@@ -205,8 +205,7 @@ class _AppointmentRescheduleState extends State<AppointmentReschedule> {
 
                 //button
                 ElevatedButton(
-                    child: Text("Submit",
-                        style: TextStyle(fontSize: 16)),
+                    child: Text("Submit", style: TextStyle(fontSize: 16)),
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
@@ -222,7 +221,21 @@ class _AppointmentRescheduleState extends State<AppointmentReschedule> {
                                     side: BorderSide(
                                         color: Colors.green.shade700)))),
                     onPressed: () {
-                      
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Reschedule Sent Successfully'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => AppointmentPage()),
+                              ),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
                     })
               ],
             )

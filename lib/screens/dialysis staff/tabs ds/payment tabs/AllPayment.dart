@@ -92,16 +92,32 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
               itemBuilder: (context, i) {
                 PaymentModel _payment = PaymentModel.fromJson(items[i]);
                 return Card(
-                  margin: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(10),
                   child: ListTile(
                     tileColor: Color.fromARGB(255, 229, 241, 250),
                     contentPadding: EdgeInsets.all(20),
-                    title: Text('${_payment.pname}'),
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.receipt_long_rounded,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('${_payment.pname}'),
+                      ],
+                    ),
                     subtitle: Column(
                       children: [
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           children: [
+                            SizedBox(
+                              width: 20,
+                            ),
                             Icon(
                               Icons.calendar_month_outlined,
                               size: 15,
@@ -112,9 +128,14 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
                             Text('${_payment.bdate}'),
                           ],
                         ),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Row(
                           children: [
+                            SizedBox(
+                              width: 20,
+                            ),
                             Icon(
                               Icons.access_time_filled_outlined,
                               size: 15,
@@ -125,31 +146,60 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
                             Text('${_payment.btime}'),
                           ],
                         ),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         Row(
                           children: [
-                            Icon(
-                              Icons.paid_outlined,
-                              size: 15,
-                            ),
                             SizedBox(
-                              width: 5,
+                              width: 40,
                             ),
-                            Text('Total: RM${_payment.totalprice}'),
+                            Text('Dialysis Treatment  '),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text('RM ${_payment.dtprice}')
                           ],
                         ),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Row(
                           children: [
-                            
-                            Text('Status: ${_payment.bstatus}'),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text('Meal Charge  '),
+                            SizedBox(
+                              width: 48,
+                            ),
+                            Text('RM ${_payment.mealprice}')
                           ],
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text('TOTAL  '),
+                            SizedBox(
+                              width: 83,
+                            ),
+                            Text('RM ${_payment.totalprice}')
+                          ],
+                        ),
+                        
                       ],
                     ),
-                    onTap: () {
-                    },
+                    onTap: () {},
                     trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: IconButton(
@@ -176,7 +226,9 @@ class _AllPaymentTabBarState extends State<AllPaymentTabBar> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
                   ),

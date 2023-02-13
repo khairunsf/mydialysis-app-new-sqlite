@@ -104,7 +104,7 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                   AppointmentModel appointment =
                       AppointmentModel.fromJson(items[i]);
                   return Card(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(20),
                     child: ListTile(
                       tileColor: Color.fromARGB(255, 229, 241, 250),
                       contentPadding: EdgeInsets.all(10),
@@ -139,8 +139,26 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                               SizedBox(
                                 width: 40,
                               ),
-                              Icon(Icons.calendar_month_outlined, size: 15),
-                              Text('   ${appointment.adate} '),
+                              Icon(
+                                Icons.badge_outlined,
+                                size: 15,
+                              ),
+                              Text('   ${appointment.drname}'),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Icon(
+                                Icons.maps_home_work_outlined,
+                                size: 15,
+                              ),
+                              Text('   ${appointment.atime}'),
                             ],
                           ),
                           SizedBox(
@@ -154,15 +172,32 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                               Icon(
                                 Icons.access_time_filled_outlined,
                                 size: 15,
-                                color: Colors.grey,
                               ),
                               Text('   ${appointment.atime}'),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Icon(Icons.calendar_month_outlined, size: 15),
+                              Text('   ${appointment.adate} '),
                             ],
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                         ],
                       ),
                       trailing: Column(
                         children: [
+                          Expanded(
+                            child: IconButton(
+                              onPressed: (() {}),
+                              icon: Icon(
+                                Icons.edit,
+                                color: Colors.blue[400],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 40),
                           Expanded(
                             child: IconButton(
                               onPressed: () {
@@ -179,23 +214,14 @@ class _AllAppTabBarState extends State<AllAppTabBar> {
                             ),
                           ),
                           SizedBox(height: 10),
-                          Expanded(
-                            child: IconButton(
-                              onPressed: (() {}),
-                              icon: Icon(
-                                Icons.edit,
-                                color: Colors.blue[400],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
                         ],
                       ),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => AppDetails(appointment))));
+                                builder: ((context) =>
+                                    AppDetails(appointment))));
                       },
                     ),
                   );

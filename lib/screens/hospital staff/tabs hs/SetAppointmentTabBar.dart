@@ -72,343 +72,345 @@ class _SetAppTabBarState extends State<SetAppTabBar> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          //content
-          //Name textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Patient Name',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            //content
+            //Name textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Patient Name',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _pNameCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Patient name is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Enter Patient Name',
+                ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _pNameCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Patient name is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Enter Patient Name',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
 
-          //Place textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Place',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
+            //Place textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Place',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _aplaceCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Place is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Enter Place',
+                ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _aplaceCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Place is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Enter Place',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
 
-          //date textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Date',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
+            //date textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Date',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _adateCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Date is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                icon: Icon(Icons.calendar_month_outlined),
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Select Date',
+                ],
               ),
-              onTap: (() async {
-                DateTime? pickeddate = await showDatePicker(
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _adateCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Date is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_month_outlined),
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Select Date',
+                ),
+                onTap: (() async {
+                  DateTime? pickeddate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1700),
+                      lastDate: DateTime(2101));
+                  if (pickeddate != null) {
+                    setState(() {
+                      _adateCon.text = dateFormat.format(pickeddate);
+                    });
+                  }
+                }),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+
+            //Time textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Time',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _atimeCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Time is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.access_time),
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Select Time',
+                ),
+                onTap: (() async {
+                  TimeOfDay? pickedtime = await showTimePicker(
                     context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1700),
-                    lastDate: DateTime(2101));
-                if (pickeddate != null) {
-                  setState(() {
-                    _adateCon.text = dateFormat.format(pickeddate);
-                  });
-                }
-              }),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-
-          //Time textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Time',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _atimeCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Time is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                icon: Icon(Icons.access_time),
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Select Time',
-              ),
-              onTap: (() async {
-                TimeOfDay? pickedtime = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (pickedtime != null) {
-                  setState(() {
-                    _atimeCon.text = pickedtime.format(context).toString();
-                  });
-                }
-              }),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-
-          //Dr Name textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Doctor Name',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _drNameCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Doctor Name is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Enter Doctor Name',
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (pickedtime != null) {
+                    setState(() {
+                      _atimeCon.text = pickedtime.format(context).toString();
+                    });
+                  }
+                }),
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-
-          //dr detail textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Doctors Detail',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 15,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _drDetailCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Doctor detail is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Enter Doctor Detail',
+
+            //Dr Name textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Doctor Name',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-
-          //Name textfield
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Doctor Room',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 18,
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextFormField(
-              controller: _drRoomCon,
-              validator: (value) {
-                if (value == "") {
-                  return "Doctor room is required";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: 'Enter Doctor Room',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _drNameCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Doctor Name is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Enter Doctor Name',
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          //button
-          ElevatedButton(
+            SizedBox(
+              height: 10,
+            ),
+
+            //dr detail textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Doctors Detail',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _drDetailCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Doctor detail is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Enter Doctor Detail',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+            //Name textfield
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Doctor Room',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextFormField(
+                controller: _drRoomCon,
+                validator: (value) {
+                  if (value == "") {
+                    return "Doctor room is required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: 'Enter Doctor Room',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            //button
+            ElevatedButton(
               child: Text("Save", style: TextStyle(fontSize: 16)),
               style: ButtonStyle(
                   foregroundColor:
@@ -422,11 +424,19 @@ class _SetAppTabBarState extends State<SetAppTabBar> {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           side: BorderSide(color: Colors.green.shade700)))),
-              onPressed: saveAppointment),
-          SizedBox(
-            height: 10,
-          ),
-        ],
+              onPressed: (() {
+                if (_formKey.currentState!.validate()) {
+                  saveAppointment();
+                } else {
+                  print("Valid Failed");
+                }
+              }),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }

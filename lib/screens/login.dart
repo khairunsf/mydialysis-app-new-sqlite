@@ -82,6 +82,19 @@ class _LoginPageState extends State<LoginPage> {
             title: Text("Error: Login Fail"),
           );
         });
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('User not found. Please sign up'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
       }
     });
   }

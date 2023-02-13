@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, 
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables,
 
 import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/patientsDetails.dart';
@@ -57,18 +57,24 @@ class _PatientProfileDSState extends State<PatientProfileDS> {
       });
     }
   }
+
+  Future deletePatient(int uid) async {
+    await _databaseHelper!.deleteUser(uid);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            //1st part
-            DSTopBar(),
-            //2nd part
-            SecondPartDSPatient(),
-            //3rd part
-            Padding(
+          child: Column(
+        children: [
+          //1st part
+          DSTopBar(),
+          //2nd part
+          SecondPartDSPatient(),
+          //3rd part
+          Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               onChanged: ((value) {
@@ -94,21 +100,51 @@ class _PatientProfileDSState extends State<PatientProfileDS> {
               itemBuilder: (context, i) {
                 UserModel patient = UserModel.fromJson(items[i]);
                 return Card(
-                  margin: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(20),
                   child: ListTile(
+                    tileColor: Color.fromARGB(255, 229, 241, 250),
+                    contentPadding:
+                        EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
                     title: Text('${patient.uname}'),
                     subtitle: Text('IC No: ${patient.uic}'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PastientDetails()));
+                          builder: (context) => PatientDetailsDS(patient)));
                     },
+                    trailing: Column(children: [
+                      Expanded(
+                        child: IconButton(
+                          onPressed: (() {}),
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.blue[400],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            deletePatient(patient.uid!).then((value) {
+                              setState(() {});
+                            });
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            size: 25,
+                            color: Colors.red[400],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                    ]),
                   ),
                 );
               },
             ),
           )
         ],
-        )),
+      )),
     );
   }
 }

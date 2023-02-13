@@ -194,12 +194,6 @@ class _AllDSSlotTimeTabBarState extends State<AllDSSlotTimeTabBar> {
                           SizedBox(height: 10),
                         ],
                       ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => SlotTimeList())));
-                      },
                     ),
                   );
                 },

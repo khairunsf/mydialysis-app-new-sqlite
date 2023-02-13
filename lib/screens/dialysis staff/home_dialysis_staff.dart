@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mydialysis_app/screens/dialysis%20staff/directory%20hs/directoryDS.dart';
+import 'package:mydialysis_app/screens/dialysis%20staff/directory%20ds/directoryDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/payment%20ds/paymentDS.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/profile%20ds/patientProfile.dart';
 import 'package:mydialysis_app/screens/dialysis%20staff/slot%20time%20ds/slotTimeDS.dart';
