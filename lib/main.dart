@@ -4,8 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:mydialysis_app/screens/login.dart';
 import 'package:mydialysis_app/screens/sign_up.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized;
+
+  await initialization(null);
+
   runApp(const MyApp());
+}
+
+Future initialization(BuildContext? context) async {
+  //load resources
+  await Future.delayed(Duration(seconds: 3));
 }
 
 class MyApp extends StatefulWidget {
