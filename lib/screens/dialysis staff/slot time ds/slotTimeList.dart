@@ -97,7 +97,7 @@ class _SlotTimeListState extends State<SlotTimeList> {
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
-                    title: Text('${patient.uname}'),
+                    title: Text('${patient.uname}'), 
                     subtitle: Text('IC No: ${patient.uic}'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
