@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+- [App Interface Design](/document/interface_design.pdf)
+- [Project Thesis](/document/project_thesis.pdf)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
