@@ -1,6 +1,6 @@
 # mydialysis_app
 
-<img src="/images/mydialysis_logo.png" alt="app_name" width="258" height="200">
+<img src="/images/mydialysis_logo.png" alt="app_name" width="250" height="200">
 
 mydialysis mobile application is developed to help the dialysis center community which are the dialysis nurses, the dialysis patients, and the hospital nurses managing their tasks conveniently.<br>
 Users tasks @ app functionalities for each user:
