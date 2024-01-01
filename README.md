@@ -2,7 +2,7 @@
 
 <img src="/images/mydialysis_logo.png" alt="app_name" width="250" height="200">
 
-mydialysis mobile application is developed to help the dialysis center community which are the dialysis nurses, the dialysis patients, and the hospital nurses managing their tasks conveniently.<br>
+mydialysis mobile application was developed to help the dialysis center community which are the dialysis nurses, the dialysis patients, and the hospital nurses managing their tasks conveniently.<br>
 Users tasks @ app functionalities for each user:
 1. Dialysis nurses
     - Manage patients' time slot for the dialysis treatment session
