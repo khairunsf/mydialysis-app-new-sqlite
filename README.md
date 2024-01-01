@@ -18,6 +18,7 @@ Users tasks @ app functionalities for each user:
 3. Hospital nurses
     - Manage patients' appointment with the specialist
 
+## More Details
 - [App Interface Design](/document/interface_design.pdf)
 - [Project Thesis](/document/project_thesis.pdf)
 - [Project Poster](/document/project_poster.pdf)
