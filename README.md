@@ -18,6 +18,10 @@ Users tasks @ app functionalities for each user:
 3. Hospital nurses
     - Manage patients' appointment with the specialist
 
+Programming language:  Dart
+Frameworks:  Flutter
+Database management tool:  SQLite
+
 ## More Details
 - [App Interface Design](/document/interface_design.pdf)
 - [Project Thesis](/document/project_thesis.pdf)
